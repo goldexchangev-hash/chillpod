@@ -22,3 +22,4 @@ desktop.ini
 # Local tooling / scratch
 .claude/
 _embed_hero.py
+_*
