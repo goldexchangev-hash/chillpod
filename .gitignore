@@ -23,3 +23,6 @@ desktop.ini
 .claude/
 _embed_hero.py
 _*
+
+# Proprietary product CAD/source files - never publish
+Ice pack/
