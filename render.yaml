@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: chillpod
+    runtime: static
+    staticPublishPath: ./
+    # no buildCommand — index.html is served as-is
+    # To add a custom domain later, uncomment and edit:
+    # domains:
+    #   - chillpod.com

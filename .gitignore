@@ -1,0 +1,20 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+
+# Environment / secrets — never commit your Render API key
+.env
+.env.*
+!.env.example
+*.pem
