@@ -18,3 +18,7 @@ desktop.ini
 .env.*
 !.env.example
 *.pem
+
+# Local tooling / scratch
+.claude/
+_embed_hero.py
