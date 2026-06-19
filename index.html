@@ -90,7 +90,7 @@
   /* proof */
   .sauna{background:linear-gradient(180deg,#08203a,#0B2A4A);color:#eaf2f8;}
   .sauna h2{color:#fff;} .sauna .sec-head p{color:#bcd0e2;}
-  .demo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px auto 0;max-width:600px;}
+  .demo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 0;}
   .demo .card{border-radius:18px;position:relative;aspect-ratio:5/6;display:flex;flex-direction:column;justify-content:space-between;padding:18px;color:#fff;}
   .demo .bare{background:linear-gradient(165deg,#7a241c,#FF6B5A);}
   .demo .pod{background:linear-gradient(165deg,#073b54,#0AA3D6);}
@@ -102,9 +102,18 @@
   .bridge .cool{color:#6fd9ff;}
   .honesty{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:6px 14px;font-size:.8rem;margin-top:16px;color:#dceaf5;}
   .sauna .fineprint{color:#9fc0d8;font-size:.84rem;margin-top:14px;}
+  .proof-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:36px;align-items:center;margin-bottom:6px;}
+  .proof-photo{margin:0;}
+  .proof-photo img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;border:1px solid rgba(255,255,255,.14);box-shadow:0 26px 60px -28px rgba(0,0,0,.7);}
+  .proof-photo figcaption{text-align:center;font-size:.82rem;color:#9fc0d8;margin-top:10px;}
 
   /* use-case chips (thin) */
-  .uses{background:var(--sand);padding:40px 0;}
+  .uses{background:var(--sand);}
+  .uses-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:40px;align-items:center;}
+  .uses-photo{margin:0;}
+  .uses-photo img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;box-shadow:var(--shadow);}
+  .uses-h2{font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:700;margin-bottom:12px;}
+  .uses .chips{justify-content:flex-start;margin-top:18px;}
   .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
   .chip{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:40px;padding:9px 16px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-sm);}
 
@@ -148,6 +157,7 @@
     .nav{display:none;}
     .hero-grid{grid-template-columns:1fr;gap:26px;}
     .hero-figure{order:-1;}
+    .proof-grid,.uses-grid{grid-template-columns:1fr;gap:26px;}
     .hero .sub{max-width:none;}
     .stickybar{display:flex;}
     section{padding:46px 0;}
@@ -220,19 +230,27 @@
 <!-- PROOF -->
 <section class="sauna" id="proof">
   <div class="wrap">
-    <div class="sec-head center reveal">
-      <div class="eyebrow heat" style="color:#ff9182;">The Proof</div>
-      <h2>8 Minutes Bare. 30 Minutes in iChillPod.</h2>
-      <p>We put it in a 180&deg;F sauna — about twice the temperature your phone is rated for.</p>
-    </div>
-    <div class="demo reveal">
-      <div class="card bare">
-        <span class="badge">Bare phone &#128293;</span>
-        <div><div class="timer">8:00</div><div class="label">Thermal shutdown.</div><div class="stat">Screen black. Recording dead.</div></div>
-      </div>
-      <div class="card pod">
-        <span class="badge">In iChillPod &#10052;&#65039;</span>
-        <div><div class="timer">30:00</div><div class="label">Still going.</div><div class="stat">Cool, on, and recording.</div></div>
+    <div class="proof-grid reveal">
+      <figure class="proof-photo">
+        <img src="sauna.jpg" alt="A woman keeping her phone working inside a hot sauna using iChillPod" loading="lazy">
+        <figcaption>Our real 180&deg;F sauna test.</figcaption>
+      </figure>
+      <div>
+        <div class="sec-head">
+          <div class="eyebrow heat" style="color:#ff9182;">The Proof</div>
+          <h2>8 Minutes Bare. 30 Minutes in iChillPod.</h2>
+          <p>We put it in a 180&deg;F sauna — about twice the temperature your phone is rated for.</p>
+        </div>
+        <div class="demo">
+          <div class="card bare">
+            <span class="badge">Bare phone &#128293;</span>
+            <div><div class="timer">8:00</div><div class="label">Thermal shutdown.</div><div class="stat">Screen black. Recording dead.</div></div>
+          </div>
+          <div class="card pod">
+            <span class="badge">In iChillPod &#10052;&#65039;</span>
+            <div><div class="timer">30:00</div><div class="label">Still going.</div><div class="stat">Cool, on, and recording.</div></div>
+          </div>
+        </div>
       </div>
     </div>
     <p class="bridge">If it survives 180&deg;F, a hot beach bag <span class="cool">doesn't stand a chance.</span></p>
@@ -243,16 +261,24 @@
   </div>
 </section>
 
-<!-- USE-CASE CHIPS (thin) -->
-<section class="uses">
-  <div class="wrap">
-    <div class="chips reveal">
-      <span class="chip">&#127958;&#65039; Beach</span>
-      <span class="chip">&#127946; Poolside</span>
-      <span class="chip">&#9971; The course</span>
-      <span class="chip">&#9917; Sidelines</span>
-      <span class="chip">&#127881; Festivals</span>
-      <span class="chip">&#128663; Hot car</span>
+<!-- USE CASES (beach lifestyle + chips) -->
+<section class="uses" id="uses">
+  <div class="wrap uses-grid">
+    <figure class="uses-photo reveal">
+      <img src="beach.jpg" alt="iChillPod on a beach towel keeping a phone cool, cold air radiating from it" loading="lazy">
+    </figure>
+    <div class="reveal">
+      <div class="eyebrow">Anywhere It Gets Hot</div>
+      <h2 class="uses-h2">From the Beach to the Sidelines.</h2>
+      <p class="muted">Freeze it at home, drop your phone in, and keep it working wherever the day turns hot.</p>
+      <div class="chips">
+        <span class="chip">&#127958;&#65039; Beach</span>
+        <span class="chip">&#127946; Poolside</span>
+        <span class="chip">&#9971; The course</span>
+        <span class="chip">&#9917; Sidelines</span>
+        <span class="chip">&#127881; Festivals</span>
+        <span class="chip">&#128663; Hot car</span>
+      </div>
     </div>
   </div>
 </section>
