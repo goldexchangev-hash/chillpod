@@ -26,3 +26,6 @@ _*
 
 # Proprietary product CAD/source files - never publish
 Ice pack/
+
+# CAD / design work - not part of the website
+design_work/

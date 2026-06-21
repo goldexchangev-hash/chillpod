@@ -114,6 +114,12 @@
   .uses-photo img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;box-shadow:var(--shadow);}
   .uses-h2{font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:700;margin-bottom:12px;}
   .uses .chips{justify-content:flex-start;margin-top:18px;}
+  .filmband{position:relative;background:var(--navy);overflow:hidden;}
+  .filmband video{display:block;width:100%;height:auto;max-height:88vh;object-fit:cover;}
+  .filmband:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,32,58,.55),transparent 38%);pointer-events:none;}
+  .filmband .kicker{position:absolute;left:clamp(18px,4vw,46px);bottom:clamp(16px,3vw,34px);z-index:2;color:var(--sand);font-family:"Space Grotesk";font-weight:600;font-size:clamp(1.05rem,2.4vw,1.7rem);text-shadow:0 2px 14px rgba(0,0,0,.55);}
+  .usesband{margin-top:28px;}
+  .usesband img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;box-shadow:var(--shadow);}
   .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
   .chip{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:40px;padding:9px 16px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-sm);}
 
@@ -227,6 +233,12 @@
   </div>
 </section>
 
+<!-- COOLING FILM BAND -->
+<section class="filmband">
+  <video class="demo-vid cool-vid" src="cooling.mp4" autoplay muted loop playsinline preload="metadata" poster="cooling-poster.jpg" aria-label="Macro close-up of iChillPod: frost and condensation bead on the cooler while the phone screen stays crisp and cool"></video>
+  <span class="kicker">Watch the heat leave.</span>
+</section>
+
 <!-- PROOF -->
 <section class="sauna" id="proof">
   <div class="wrap">
@@ -265,7 +277,7 @@
 <section class="uses" id="uses">
   <div class="wrap uses-grid">
     <figure class="uses-photo reveal">
-      <img src="beach.jpg" alt="iChillPod on a beach towel keeping a phone cool, cold air radiating from it" loading="lazy">
+      <img src="beach-wide.jpg" alt="The frosted white iChillPod with a phone inside, beaded with condensation, on a beach towel by the ocean" loading="lazy">
     </figure>
     <div class="reveal">
       <div class="eyebrow">Anywhere It Gets Hot</div>
@@ -280,6 +292,9 @@
         <span class="chip">&#128663; Hot car</span>
       </div>
     </div>
+  </div>
+  <div class="wrap usesband reveal">
+    <img src="uses-grid.jpg" alt="iChillPod keeping a phone cool in four real settings — the beach, a sauna, the soccer sidelines, and a golf cart" loading="lazy">
   </div>
 </section>
 
@@ -390,8 +405,8 @@
     var obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } }); }, {threshold:.12});
     els.forEach(function(el){ obs.observe(el); });
   })();
-  (function(){ var v=document.querySelector('.demo-vid'); if(!v) return;
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ v.removeAttribute('autoplay'); v.setAttribute('controls',''); try{v.pause();}catch(e){} } })();
+  (function(){ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('.demo-vid').forEach(function(v){ v.removeAttribute('autoplay'); v.setAttribute('controls',''); try{v.pause();}catch(e){} }); })();
 </script>
 
 <!-- SHOPIFY BUY BUTTON -->
