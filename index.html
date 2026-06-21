@@ -63,7 +63,11 @@
   .hero h1{font-size:clamp(2.1rem,5.2vw,3.4rem);font-weight:700;}
   .hero h1 .hl{color:var(--cyan-dark);}
   .hero .sub{font-size:1.14rem;margin-top:16px;max-width:34ch;color:var(--navy-soft);}
-  .hero-cta{margin-top:24px;max-width:380px;}
+  .hero-cta{margin-top:22px;max-width:400px;}
+  .buybox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 16px 18px;box-shadow:var(--shadow-sm);}
+  .buybox .priceline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+  .buybox .amt{font-family:"Space Grotesk";font-weight:700;font-size:2.1rem;color:var(--navy);line-height:1;border-bottom:2px dashed #E0B84A;}
+  .buybox .price-note{font-size:.85rem;color:var(--navy-soft);font-weight:500;}
   .trustbar{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:22px;font-size:.9rem;font-weight:500;}
   .trustbar span{display:flex;align-items:center;gap:7px;}
   .vid-wrap{position:relative;}
@@ -184,7 +188,7 @@
   <div class="wrap hdr">
     <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span>iChill<b>Pod</b></div>
     <nav class="nav"><a href="#why">Why</a><a href="#proof">Proof</a><a href="#details">FAQ</a><a href="#offer">Buy</a></nav>
-    <a href="#offer" class="btn">Get iChillPod</a>
+    <a href="#offer" class="btn">Buy now</a>
   </div>
 </header>
 
@@ -196,8 +200,11 @@
       <h1>Your Phone Dies in the Heat.<br><span class="hl">iChillPod Won't Let It.</span></h1>
       <p class="sub">A frozen core that pulls the heat <em>out</em> of your phone — not just a pouch. Freeze it, slide your phone in, go anywhere hot.</p>
       <div class="hero-cta">
-        <a href="#offer" class="btn block lg">Get iChillPod</a>
-        <p class="cta-micro">Freeze it once. Use it all summer. 30-day money-back guarantee.</p>
+        <div class="buybox">
+          <div class="priceline"><span class="amt">[$PRICE]</span><span class="price-note">Free shipping &middot; 30-day money-back guarantee</span></div>
+          <a href="#offer" class="btn block lg">Buy now</a>
+          <p class="cta-micro">Freeze it once. Slide your phone in. Keep it cool all summer.</p>
+        </div>
       </div>
       <div class="trustbar">
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#0AA3D6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> No Power or Cables</span>
@@ -374,7 +381,7 @@
 <!-- STICKY BOTTOM BAR (mobile) -->
 <div class="stickybar" id="stickybar" aria-hidden="true">
   <div class="txt">iChillPod<small>30-day money-back guarantee</small></div>
-  <a href="#offer" class="btn">Get iChillPod</a>
+  <a href="#offer" class="btn">Buy now</a>
 </div>
 
 <!-- SCRIPTS -->
