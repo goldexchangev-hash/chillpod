@@ -114,14 +114,24 @@
   .proof-photo img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;border:1px solid rgba(255,255,255,.14);box-shadow:0 26px 60px -28px rgba(0,0,0,.7);}
   .proof-photo figcaption{text-align:center;font-size:.82rem;color:#9fc0d8;margin-top:10px;}
 
-  /* use-case chips (thin) */
-  .uses{background:var(--sand);}
-  .uses-h2{font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:700;margin-bottom:12px;}
-  .uses .chips{margin-top:18px;}
-  .usesband{margin-top:28px;}
-  .usesband img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;box-shadow:var(--shadow);}
-  .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
-  .chip{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:40px;padding:9px 16px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-sm);}
+  /* uses — ported from the Shopify "iChillPod Uses" section (Dawn rem = 10px, converted to px) */
+  .chillpod-uses{background:var(--sand);padding:50px 0;color:var(--navy);}
+  .chillpod-uses__heading{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;font-size:clamp(1.375rem,3.6vw,2rem);line-height:1.12;letter-spacing:-.01em;margin:0 0 12px;text-align:center;}
+  .chillpod-uses__sub{font-size:.9375rem;line-height:1.5;max-width:640px;margin:0 auto 20px;opacity:.8;text-align:center;}
+  .chillpod-uses__chips{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0 auto 24px;justify-content:center;}
+  .chillpod-uses__chips li{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:40px;padding:8.5px 15px;font-size:.78125rem;font-weight:600;box-shadow:var(--shadow-sm);}
+  .chillpod-uses__tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;overflow:visible;padding:6px;} /* room for hover scale so neighbours aren't flush-clipped */
+  .chillpod-uses__tile{margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);position:relative;z-index:1;transform-origin:center center;transition:transform .28s ease,box-shadow .28s ease;display:flex;flex-direction:column;}
+  .chillpod-uses__tile img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;object-position:center;background:#f6f2ea;}
+  .chillpod-uses__tile figcaption{padding:9px 10px 11px;font-weight:600;font-size:.78125rem;text-align:center;font-family:"Space Grotesk",system-ui,sans-serif;}
+  @media screen and (max-width:749px){
+    .chillpod-uses{padding:36px 0;}
+    .chillpod-uses__tiles{grid-template-columns:1fr 1fr;gap:10px;}
+    .chillpod-uses__heading{font-size:clamp(1.25rem,7vw,1.625rem);}
+  }
+  @media (hover:hover) and (pointer:fine){
+    .chillpod-uses__tile:hover{z-index:6;transform:scale(1.08);box-shadow:0 22px 50px -18px rgba(11,42,74,.4);}
+  }
 
   /* offer */
   .final{background:var(--navy);color:#eaf2f8;text-align:center;}
@@ -183,6 +193,7 @@
     html{scroll-behavior:auto;}
     .reveal{opacity:1!important;transform:none!important;transition:none!important;}
     .btn:hover{transform:none;}
+    .chillpod-uses__tile{transition:none;} .chillpod-uses__tile:hover{transform:none;}
     .faq-a{transition:none!important;} .faq-q .ico{transition:none!important;}
   }
 </style>
@@ -223,6 +234,40 @@
       <video class="demo-vid" src="hero-demo.mp4?v=2" poster="hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="iChillPod demo: an overheating phone is set into the cooler in a sauna and comes back on"></video>
       <figcaption class="vid-cap"><span class="lv"></span> Real demo — watch it cool a phone for use.</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- USES (ported from the Shopify "iChillPod Uses" section) -->
+<section class="chillpod-uses" id="uses">
+  <div class="wrap reveal">
+    <h2 class="chillpod-uses__heading">From the Beach to the Sidelines.</h2>
+    <p class="chillpod-uses__sub">Freeze it at home, drop your phone in, and keep it working wherever the day turns hot.</p>
+    <ul class="chillpod-uses__chips" role="list">
+      <li>&#127958;&#65039; Beach</li>
+      <li>&#127946; Poolside</li>
+      <li>&#9971; The course</li>
+      <li>&#9917; Sidelines</li>
+      <li>&#127881; Festivals</li>
+      <li>&#128663; Hot car</li>
+    </ul>
+    <div class="chillpod-uses__tiles">
+      <figure class="chillpod-uses__tile">
+        <img src="use-beach.jpg" alt="Beach" loading="lazy" width="1376" height="768">
+        <figcaption>Beach</figcaption>
+      </figure>
+      <figure class="chillpod-uses__tile">
+        <img src="use-sauna.jpg" alt="Sauna" loading="lazy" width="1376" height="768">
+        <figcaption>Sauna</figcaption>
+      </figure>
+      <figure class="chillpod-uses__tile">
+        <img src="use-stadium.jpg" alt="Stadium" loading="lazy" width="1376" height="768">
+        <figcaption>Stadium</figcaption>
+      </figure>
+      <figure class="chillpod-uses__tile">
+        <img src="use-golf.jpg" alt="Golf" loading="lazy" width="1376" height="768">
+        <figcaption>Golf</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -277,26 +322,6 @@
       <span class="honesty">&#9878;&#65039; "8 vs 30 minutes" is from our own testing — not a third-party stat.</span>
       <p class="fineprint">Phones are built to run between 32&deg;F and 95&deg;F. &mdash; Apple &amp; Samsung Support.</p>
     </div>
-  </div>
-</section>
-
-<!-- USE CASES -->
-<section class="uses" id="uses">
-  <div class="wrap narrow center reveal">
-      <div class="eyebrow">Anywhere It Gets Hot</div>
-      <h2 class="uses-h2">From the Beach to the Sidelines.</h2>
-      <p class="muted">Freeze it at home, drop your phone in, and keep it working wherever the day turns hot.</p>
-      <div class="chips">
-        <span class="chip">&#127958;&#65039; Beach</span>
-        <span class="chip">&#127946; Poolside</span>
-        <span class="chip">&#9971; The course</span>
-        <span class="chip">&#9917; Sidelines</span>
-        <span class="chip">&#127881; Festivals</span>
-        <span class="chip">&#128663; Hot car</span>
-      </div>
-  </div>
-  <div class="wrap usesband reveal">
-    <img src="uses-grid.jpg" alt="iChillPod keeping a phone cool in four real settings — the beach, a sauna, the soccer sidelines, and a golf cart" loading="lazy">
   </div>
 </section>
 
