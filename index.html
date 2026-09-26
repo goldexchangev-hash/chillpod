@@ -75,7 +75,7 @@
   .trustbar span{display:flex;align-items:center;gap:7px;}
   .vid-wrap{position:relative;}
   .vid-wrap:before{content:"";position:absolute;inset:-8% -6% -6% -6%;z-index:-1;background:radial-gradient(50% 46% at 50% 42%,rgba(10,163,214,.22),transparent 70%);}
-  .hero-figure video{width:100%;max-width:420px;margin:0 auto;border-radius:22px;box-shadow:var(--shadow);background:linear-gradient(180deg,#fff,#eef6fb);aspect-ratio:3/4;object-fit:cover;}
+  .hero-figure video{width:100%;max-width:480px;margin:0 auto;border-radius:22px;box-shadow:var(--shadow);background:#1c140e;aspect-ratio:1/1;object-fit:cover;}
   .vid-cap{text-align:center;font-size:.86rem;color:var(--navy-soft);margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:center;}
   .vid-cap .lv{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(10,163,214,.18);flex:none;}
 
@@ -116,15 +116,8 @@
 
   /* use-case chips (thin) */
   .uses{background:var(--sand);}
-  .uses-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:40px;align-items:center;}
-  .uses-photo{margin:0;}
-  .uses-photo img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;box-shadow:var(--shadow);}
   .uses-h2{font-size:clamp(1.6rem,3.6vw,2.2rem);font-weight:700;margin-bottom:12px;}
-  .uses .chips{justify-content:flex-start;margin-top:18px;}
-  .filmband{position:relative;background:var(--navy);overflow:hidden;}
-  .filmband video{display:block;width:100%;height:auto;max-height:88vh;object-fit:cover;}
-  .filmband:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,32,58,.55),transparent 38%);pointer-events:none;}
-  .filmband .kicker{position:absolute;left:clamp(18px,4vw,46px);bottom:clamp(16px,3vw,34px);z-index:2;color:var(--sand);font-family:"Space Grotesk";font-weight:600;font-size:clamp(1.05rem,2.4vw,1.7rem);text-shadow:0 2px 14px rgba(0,0,0,.55);}
+  .uses .chips{margin-top:18px;}
   .usesband{margin-top:28px;}
   .usesband img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;box-shadow:var(--shadow);}
   .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
@@ -180,7 +173,7 @@
     .nav{display:none;}
     .hero-grid{grid-template-columns:1fr;gap:26px;}
     .hero-figure{order:-1;}
-    .proof-grid,.uses-grid{grid-template-columns:1fr;gap:26px;}
+    .proof-grid{grid-template-columns:1fr;gap:26px;}
     .hero .sub{max-width:none;}
     .stickybar{display:flex;}
     section{padding:46px 0;}
@@ -199,7 +192,7 @@
 <!-- HEADER -->
 <header class="site">
   <div class="wrap hdr">
-    <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span>iChill<b>Pod</b></div>
+    <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span><span class="word">iChill<b>Pod</b></span></div>
     <nav class="nav"><a href="#why">Why</a><a href="#proof">Proof</a><a href="#details">FAQ</a><a href="#offer">Buy</a></nav>
     <a href="#offer" class="btn">Buy now</a>
   </div>
@@ -227,7 +220,7 @@
       </div>
     </div>
     <figure class="hero-figure vid-wrap reveal">
-      <video class="demo-vid" src="chillpod-demo.mp4" autoplay muted loop playsinline preload="auto" aria-label="iChillPod demo: a hot phone is slid into the iChillPod and cools down for use"></video>
+      <video class="demo-vid" src="hero-demo.mp4?v=2" poster="hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="iChillPod demo: an overheating phone is set into the cooler in a sauna and comes back on"></video>
       <figcaption class="vid-cap"><span class="lv"></span> Real demo — watch it cool a phone for use.</figcaption>
     </figure>
   </div>
@@ -249,15 +242,8 @@
     <ul class="benefits reveal">
       <li><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><b>Actively removes heat</b> by direct conduction — not just insulation.</span></li>
       <li><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><b>No cords or batteries</b> — freeze it, refreeze it, reuse it all summer.</span></li>
-      <li><span class="ck"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span> <span><b>Dry slot, no condensation</b> — your phone never touches the cold mass.</span></li>
     </ul>
   </div>
-</section>
-
-<!-- COOLING FILM BAND -->
-<section class="filmband">
-  <video class="demo-vid cool-vid" src="cooling.mp4" autoplay muted loop playsinline preload="metadata" poster="cooling-poster.jpg" aria-label="Macro close-up of iChillPod: frost and condensation bead on the cooler while the phone screen stays crisp and cool"></video>
-  <span class="kicker">Watch the heat leave.</span>
 </section>
 
 <!-- PROOF -->
@@ -294,13 +280,9 @@
   </div>
 </section>
 
-<!-- USE CASES (beach lifestyle + chips) -->
+<!-- USE CASES -->
 <section class="uses" id="uses">
-  <div class="wrap uses-grid">
-    <figure class="uses-photo reveal">
-      <img src="beach-wide.jpg" alt="The frosted white iChillPod with a phone inside, beaded with condensation, on a beach towel by the ocean" loading="lazy">
-    </figure>
-    <div class="reveal">
+  <div class="wrap narrow center reveal">
       <div class="eyebrow">Anywhere It Gets Hot</div>
       <h2 class="uses-h2">From the Beach to the Sidelines.</h2>
       <p class="muted">Freeze it at home, drop your phone in, and keep it working wherever the day turns hot.</p>
@@ -312,7 +294,6 @@
         <span class="chip">&#127881; Festivals</span>
         <span class="chip">&#128663; Hot car</span>
       </div>
-    </div>
   </div>
   <div class="wrap usesband reveal">
     <img src="uses-grid.jpg" alt="iChillPod keeping a phone cool in four real settings — the beach, a sauna, the soccer sidelines, and a golf cart" loading="lazy">
@@ -370,7 +351,7 @@
       </div>
       <div class="faq-item" data-open="false">
         <button class="faq-q" aria-expanded="false" aria-controls="d4"><span>Will It Get My Phone Wet?</span><span class="ico" aria-hidden="true">+</span></button>
-        <div class="faq-a" id="d4"><div class="faq-a-inner">No — that's the point. A freezer or cooler hack creates condensation inside your phone; iChillPod keeps it in a dry slot, separated from the cold mass.</div></div>
+        <div class="faq-a" id="d4"><div class="faq-a-inner">Condensation can form on the cooler as the frozen core warms. Wipe it off before you pocket the phone.</div></div>
       </div>
       <div class="faq-item" data-open="false">
         <button class="faq-q" aria-expanded="false" aria-controls="d5"><span>Specs &amp; Fit</span><span class="ico" aria-hidden="true">+</span></button>
@@ -395,7 +376,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span>iChill<b>Pod</b></div>
+  <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span><span class="word">iChill<b>Pod</b></span></div>
   <p>The reusable, no-power phone cooler that pulls heat out of your phone.</p>
   <p style="margin-top:10px;opacity:.8;">&copy; 2026 iChillPod. All rights reserved.</p>
 </footer>
@@ -435,7 +416,25 @@
     els.forEach(function(el){ obs.observe(el); });
   })();
   (function(){ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    document.querySelectorAll('.demo-vid').forEach(function(v){ v.removeAttribute('autoplay'); v.setAttribute('controls',''); try{v.pause();}catch(e){} }); })();
+    document.querySelectorAll('.demo-vid').forEach(function(v){
+      if(v.closest('.hero-figure')) return;
+      v.removeAttribute('autoplay'); v.setAttribute('controls',''); try{v.pause();}catch(e){}
+    }); })();
+  (function(){
+    var v = document.querySelector('.hero-figure video');
+    if(!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute('autoplay','');
+    v.removeAttribute('controls');
+    var start = function(){ var p = v.play(); if(p && p.catch) p.catch(function(){}); };
+    if(v.readyState >= 2) start();
+    else {
+      v.addEventListener('canplay', start, {once:true});
+      v.addEventListener('loadeddata', start, {once:true});
+    }
+  })();
 </script>
 
 <!-- SHOPIFY BUY BUTTON -->
