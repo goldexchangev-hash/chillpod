@@ -37,5 +37,9 @@ block in `render.yaml`.)
 
 ## After it's live
 
-- Replace the **Buy Now** link with your Shopify Buy Button URL.
+- Purchase CTAs (class `js-shopify-buy`) link to the Shopify product page
+  `https://ichillpod.myshopify.com/products/chillpod`. To send buyers straight to
+  checkout, set `VARIANT_ID` in the "SHOPIFY PURCHASE FLOW" script at the bottom of
+  `index.html` to the numeric **variant** id of the chillpod product; the CTAs then use
+  the cart permalink `https://ichillpod.myshopify.com/cart/<VARIANT_ID>:1`.
 - Fill remaining placeholders: real price, phone-fit dimensions, real reviews.
