@@ -37,5 +37,9 @@ block in `render.yaml`.)
 
 ## After it's live
 
-- Replace the **Buy Now** link with your Shopify Buy Button URL.
+- All purchase CTAs link to the Shopify cart permalink
+  `https://ichillpod.myshopify.com/cart/67578266419311:1` (adds one iChillPod,
+  variant `67578266419311` of product `15554226356335`, and goes straight to
+  checkout). If the variant ever changes, update that URL in the four `<a>` tags
+  in `index.html` (header, hero, offer card, mobile sticky bar).
 - Fill remaining placeholders: real price, phone-fit dimensions, real reviews.
