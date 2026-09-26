@@ -90,9 +90,9 @@ Once the custom domain works you can hide the default `chillpod.onrender.com` UR
 
 ## Email
 
-The site's fallback pre-order link is `hello@ichillpod.com`. That mailbox does not exist until
-you create it — the easiest option is GoDaddy → `ichillpod.com` → **Email Forwarding**, forwarding
-`hello@ichillpod.com` to an inbox you already use.
+The site's fallback pre-order link goes to the real contact inbox, `ichillpod@gmail.com`.
+No mailbox or email forwarding needs to be set up on `ichillpod.com`, and the DNS changes above
+do not affect it.
 
 References: [Render custom domains](https://render.com/docs/custom-domains),
 [Render DNS for other providers](https://render.com/docs/configure-other-dns),
