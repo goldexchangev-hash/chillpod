@@ -224,7 +224,7 @@
   <div class="wrap hdr">
     <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span><span class="word">iChill<b>Pod</b></span></div>
     <nav class="nav"><a href="#why">Why</a><a href="#proof">Proof</a><a href="#details">FAQ</a><a href="#offer">Buy</a></nav>
-    <a href="#offer" class="btn">Buy now</a>
+    <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn js-shopify-buy" rel="noopener">Buy now</a>
   </div>
 </header>
 
@@ -239,7 +239,7 @@
         <div class="buybox">
           <div class="priceline"><span class="amt">$29</span><span class="was">$39</span><span class="price-note">Free shipping &middot; 30-day money-back guarantee</span></div>
           <div class="saleline">&#128293; Launch sale ends in <span class="countdown">--:--:--</span></div>
-          <a href="#offer" class="btn block lg">Buy now</a>
+          <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn block lg js-shopify-buy" rel="noopener">Buy now</a>
           <p class="cta-micro">Freeze it once. Slide your phone in. Keep it cool all summer.</p>
         </div>
       </div>
@@ -364,8 +364,7 @@
           <div class="tier-note">One&rsquo;s always frozen &amp; ready to swap</div>
         </div>
       </div>
-      <div id="chillpod-buy-final"></div>
-      <a id="chillpod-buy-final-fallback" href="mailto:hello@chillpod.com?subject=iChillPod%20pre-order" class="btn block lg">Get iChillPod</a>
+      <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn block lg js-shopify-buy" rel="noopener">Get iChillPod</a>
       <p class="cta-micro">30-day money-back guarantee.</p>
       <div class="glist">
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#0AA3D6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> 30-Day Guarantee</span>
@@ -431,7 +430,7 @@
 <!-- STICKY BOTTOM BAR (mobile) -->
 <div class="stickybar" id="stickybar" aria-hidden="true">
   <div class="txt">iChillPod<small>30-day money-back guarantee</small></div>
-  <a href="#offer" class="btn">Buy now</a>
+  <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn js-shopify-buy" rel="noopener">Buy now</a>
 </div>
 
 <!-- SCRIPTS -->
@@ -484,28 +483,18 @@
   })();
 </script>
 
-<!-- SHOPIFY BUY BUTTON -->
-<script src="https://sdks.shopifycdn.com/buy-button/latest/buybutton.js"></script>
+<!-- SHOPIFY PURCHASE FLOW
+     Every purchase CTA (class "js-shopify-buy") links to the iChillPod product page on the
+     Shopify storefront (product id 15554226356335, handle "chillpod"). Once VARIANT_ID below
+     is set to the numeric id of that product's variant (NOT the product id), the CTAs are
+     upgraded to a cart permalink that adds one unit and lands directly on checkout. -->
 <script>
-  /* global ShopifyBuy */
   (function(){
-    var SHOP_DOMAIN      = 'TODO-YOUR-SHOP.myshopify.com';     // TODO e.g. chillpod.myshopify.com
-    var STOREFRONT_TOKEN = 'TODO-STOREFRONT-ACCESS-TOKEN';     // TODO public storefront access token
-    var PRODUCT_ID       = 'TODO-NUMERIC-PRODUCT-ID';          // TODO numeric product id
-    if(typeof ShopifyBuy === 'undefined') return;
-    if(/^TODO/.test(SHOP_DOMAIN) || /^TODO/.test(STOREFRONT_TOKEN) || /^TODO/.test(PRODUCT_ID)) return;
-    var client = ShopifyBuy.buildClient({ domain: SHOP_DOMAIN, storefrontAccessToken: STOREFRONT_TOKEN });
-    var ui = ShopifyBuy.UI.init(client);
-    (function(nodeId){
-      var node = document.getElementById(nodeId); if(!node) return;
-      ui.createComponent('product', { id: PRODUCT_ID, node: node, options: { product: {
-        buttonDestination: 'checkout',
-        contents: { img:false, title:false, price:false, button:true },
-        text: { button: 'Get iChillPod' },
-        styles: { button: { 'background-color':'#0AA3D6', ':hover':{'background-color':'#0993C2'}, 'border-radius':'10px','font-size':'18px','padding-top':'16px','padding-bottom':'16px' } }
-      } } });
-      var fb = document.getElementById('chillpod-buy-final-fallback'); if(fb) fb.style.display = 'none';
-    })('chillpod-buy-final');
+    var SHOP = 'https://ichillpod.myshopify.com';
+    var VARIANT_ID = '';
+    if(!/^\d+$/.test(VARIANT_ID)) return;
+    var checkout = SHOP + '/cart/' + VARIANT_ID + ':1';
+    document.querySelectorAll('a.js-shopify-buy').forEach(function(a){ a.href = checkout; });
   })();
 </script>
 <script>
