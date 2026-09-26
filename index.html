@@ -224,7 +224,7 @@
   <div class="wrap hdr">
     <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span><span class="word">iChill<b>Pod</b></span></div>
     <nav class="nav"><a href="#why">Why</a><a href="#proof">Proof</a><a href="#details">FAQ</a><a href="#offer">Buy</a></nav>
-    <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn js-shopify-buy" rel="noopener">Buy now</a>
+    <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn" rel="noopener">Buy now</a>
   </div>
 </header>
 
@@ -239,7 +239,7 @@
         <div class="buybox">
           <div class="priceline"><span class="amt">$29</span><span class="was">$39</span><span class="price-note">Free shipping &middot; 30-day money-back guarantee</span></div>
           <div class="saleline">&#128293; Launch sale ends in <span class="countdown">--:--:--</span></div>
-          <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn block lg js-shopify-buy" rel="noopener">Buy now</a>
+          <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn block lg" rel="noopener">Buy now</a>
           <p class="cta-micro">Freeze it once. Slide your phone in. Keep it cool all summer.</p>
         </div>
       </div>
@@ -364,7 +364,7 @@
           <div class="tier-note">One&rsquo;s always frozen &amp; ready to swap</div>
         </div>
       </div>
-      <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn block lg js-shopify-buy" rel="noopener">Get iChillPod</a>
+      <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn block lg" rel="noopener">Get iChillPod</a>
       <p class="cta-micro">30-day money-back guarantee.</p>
       <div class="glist">
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#0AA3D6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> 30-Day Guarantee</span>
@@ -430,7 +430,7 @@
 <!-- STICKY BOTTOM BAR (mobile) -->
 <div class="stickybar" id="stickybar" aria-hidden="true">
   <div class="txt">iChillPod<small>30-day money-back guarantee</small></div>
-  <a href="https://ichillpod.myshopify.com/products/chillpod" class="btn js-shopify-buy" rel="noopener">Buy now</a>
+  <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn" rel="noopener">Buy now</a>
 </div>
 
 <!-- SCRIPTS -->
@@ -484,19 +484,10 @@
 </script>
 
 <!-- SHOPIFY PURCHASE FLOW
-     Every purchase CTA (class "js-shopify-buy") links to the iChillPod product page on the
-     Shopify storefront (product id 15554226356335, handle "chillpod"). Once VARIANT_ID below
-     is set to the numeric id of that product's variant (NOT the product id), the CTAs are
-     upgraded to a cart permalink that adds one unit and lands directly on checkout. -->
-<script>
-  (function(){
-    var SHOP = 'https://ichillpod.myshopify.com';
-    var VARIANT_ID = '';
-    if(!/^\d+$/.test(VARIANT_ID)) return;
-    var checkout = SHOP + '/cart/' + VARIANT_ID + ':1';
-    document.querySelectorAll('a.js-shopify-buy').forEach(function(a){ a.href = checkout; });
-  })();
-</script>
+     Every purchase CTA links to the Shopify cart permalink
+     https://ichillpod.myshopify.com/cart/67578266419311:1
+     which adds one iChillPod (product 15554226356335, handle "chillpod",
+     variant 67578266419311 "Default Title") and lands directly on checkout. -->
 <script>
 (function(){var els=document.querySelectorAll('.countdown');if(!els.length)return;function p(n){return String(n).padStart(2,'0');}var HOUR=3600000;function deadline(){var d=parseInt(localStorage.getItem('icp_cd')||'0',10);var now=Date.now();if(!d||d<=now){d=now+HOUR;try{localStorage.setItem('icp_cd',d);}catch(e){}}return d;}function tick(){var s=Math.max(0,Math.floor((deadline()-Date.now())/1000));var t=p(Math.floor(s/60))+':'+p(s%60);els.forEach(function(e){e.textContent=t;});}tick();setInterval(tick,1000);})();
 </script>
