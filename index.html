@@ -258,6 +258,38 @@
     .chillpod-hero__live-dot{width:6.5px;height:6.5px;}
   }
 
+  /* Launch-sale countdown card (Dawn chillpod-launch-sale-countdown-v1, shown under ATC on the product page) */
+  .chillpod-launch-sale{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;
+    margin:12px 0 0;padding:10px 14px;
+    background:#fff;border:1px solid var(--cp-line);border-radius:12px;box-shadow:var(--cp-shadow-sm);
+    color:var(--cp-navy);text-align:left;line-height:1.3;
+  }
+  .chillpod-launch-sale__copy{display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .chillpod-launch-sale__label{
+    display:flex;align-items:center;gap:6px;
+    font-size:12px;font-weight:700;color:#C0392B;letter-spacing:.01em;
+  }
+  .chillpod-launch-sale__timer{
+    font-family:var(--font-heading-family);font-weight:700;font-size:20px;line-height:1.1;
+    font-variant-numeric:tabular-nums;letter-spacing:.02em;color:var(--cp-navy);
+  }
+  .chillpod-launch-sale__prices{display:flex;align-items:baseline;gap:8px;flex:none;}
+  .chillpod-launch-sale__was{
+    font-family:var(--font-heading-family);font-weight:600;font-size:13px;
+    text-decoration:line-through;opacity:.55;
+  }
+  .chillpod-launch-sale__now{font-family:var(--font-heading-family);font-weight:700;font-size:20px;line-height:1;}
+  .chillpod-launch-sale--ended .chillpod-launch-sale__label{color:var(--cp-navy-soft);}
+  .chillpod-launch-sale--ended .chillpod-launch-sale__timer{display:none;}
+  .chillpod-featured-cta .chillpod-launch-sale{max-width:420px;margin:14px auto 0;}
+  .chillpod-faq__footer .chillpod-launch-sale{flex:1 1 100%;margin:4px 0 0;}
+  @media (max-width:749px){
+    .chillpod-launch-sale{padding:10px 12px;}
+    .chillpod-launch-sale__timer{font-size:18px;}
+    .chillpod-launch-sale__now{font-size:18px;}
+  }
+
   /* Payment icons (snippets/buy-buttons.liquid → chillpod-payment-icons-v1), static SVG sprite */
   .chillpod-payment-icons{
     display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
@@ -338,7 +370,7 @@
   .chillpod-proof__top{display:grid;grid-template-columns:1fr 1fr;gap:32px 40px;align-items:center;}
   .chillpod-proof__photo{margin:0;}
   .chillpod-proof__photo img{
-    display:block;width:100%;height:auto;aspect-ratio:3 / 4;object-fit:cover;
+    display:block;width:100%;height:auto;aspect-ratio:1 / 1;object-fit:cover; /* square product photo shown uncropped */
     border-radius:20px;box-shadow:0 22px 55px -24px rgba(0,0,0,.55);
   }
   .chillpod-proof__photo figcaption{margin:10px 0 0;text-align:center;font-size:12.5px;opacity:.8;}
@@ -615,6 +647,16 @@
             <a class="chillpod-hero__cta button" href="https://ichillpod.myshopify.com/cart/67578266419311:1">Shop Now</a>
             <span class="chillpod-hero__patent">Patent Pending</span>
           </div>
+          <div class="chillpod-launch-sale" data-launch-sale>
+            <div class="chillpod-launch-sale__copy">
+              <span class="chillpod-launch-sale__label"><span aria-hidden="true">&#128293;</span> <span data-launch-sale-label>Launch sale ends in</span></span>
+              <span class="chillpod-launch-sale__timer" data-launch-sale-timer role="timer" aria-live="off">--d --:--:--</span>
+            </div>
+            <div class="chillpod-launch-sale__prices">
+              <s class="chillpod-launch-sale__was">$39</s>
+              <b class="chillpod-launch-sale__now">$29.95</b>
+            </div>
+          </div>
           <ul class="chillpod-payment-icons" aria-label="Accepted payment methods">
             <li class="chillpod-payment-icons__icon"><svg role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg></li>
             <li class="chillpod-payment-icons__icon"><svg role="img" aria-label="Google Pay"><use href="#pay-google"/></svg></li>
@@ -705,7 +747,7 @@
   <div class="chillpod-proof__inner page-width">
     <div class="chillpod-proof__top">
       <figure class="chillpod-proof__photo">
-        <img src="sauna.jpg?v=2" alt="Woman in a sauna holding iChillPod" loading="lazy" width="768" height="1024">
+        <img src="sauna-bench-product-square.jpg" alt="iChillPod with a phone inside, resting on a sauna bench" loading="lazy" width="1200" height="1200">
         <figcaption>Our real 200&deg;F sauna test.</figcaption>
       </figure>
 
@@ -747,6 +789,16 @@
       <span class="chillpod-featured-cta__scrim" aria-hidden="true"></span>
       <span class="chillpod-featured-cta__btn">Buy Now</span>
     </a>
+    <div class="chillpod-launch-sale" data-launch-sale>
+      <div class="chillpod-launch-sale__copy">
+        <span class="chillpod-launch-sale__label"><span aria-hidden="true">&#128293;</span> <span data-launch-sale-label>Launch sale ends in</span></span>
+        <span class="chillpod-launch-sale__timer" data-launch-sale-timer role="timer" aria-live="off">--d --:--:--</span>
+      </div>
+      <div class="chillpod-launch-sale__prices">
+        <s class="chillpod-launch-sale__was">$39</s>
+        <b class="chillpod-launch-sale__now">$29.95</b>
+      </div>
+    </div>
     <ul class="chillpod-payment-icons" aria-label="Accepted payment methods">
       <li class="chillpod-payment-icons__icon"><svg role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg></li>
       <li class="chillpod-payment-icons__icon"><svg role="img" aria-label="Google Pay"><use href="#pay-google"/></svg></li>
@@ -821,6 +873,16 @@
           <li class="chillpod-payment-icons__icon"><svg role="img" aria-label="Discover"><use href="#pay-discover"/></svg></li>
         </ul>
       </div>
+      <div class="chillpod-launch-sale" data-launch-sale>
+        <div class="chillpod-launch-sale__copy">
+          <span class="chillpod-launch-sale__label"><span aria-hidden="true">&#128293;</span> <span data-launch-sale-label>Launch sale ends in</span></span>
+          <span class="chillpod-launch-sale__timer" data-launch-sale-timer role="timer" aria-live="off">--d --:--:--</span>
+        </div>
+        <div class="chillpod-launch-sale__prices">
+          <s class="chillpod-launch-sale__was">$39</s>
+          <b class="chillpod-launch-sale__now">$29.95</b>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -869,6 +931,34 @@
     var start = function(){ var p = v.play(); if(p && p.catch) p.catch(function(){}); };
     if(v.readyState >= 2) start();
     else { v.addEventListener('canplay', start, {once:true}); v.addEventListener('loadeddata', start, {once:true}); }
+  })();
+  (function(){
+    // Launch-sale countdown (mirrors Dawn chillpod-launch-sale-countdown-v1). Fixed deadline, not per-visitor.
+    var DEADLINE = Date.parse('2026-10-03T23:59:59-04:00');
+    var cards = document.querySelectorAll('[data-launch-sale]');
+    if(!cards.length || isNaN(DEADLINE)) return;
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+    function render(){
+      var left = DEADLINE - Date.now();
+      var ended = left <= 0;
+      var text = '';
+      if(!ended){
+        var s = Math.floor(left / 1000);
+        var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+        text = (d > 0 ? d + 'd ' : '') + pad(h) + ':' + pad(m) + ':' + pad(sec);
+      }
+      cards.forEach(function(card){
+        card.classList.toggle('chillpod-launch-sale--ended', ended);
+        var label = card.querySelector('[data-launch-sale-label]');
+        var timer = card.querySelector('[data-launch-sale-timer]');
+        if(label) label.textContent = ended ? 'Sale ended' : 'Launch sale ends in';
+        if(timer) timer.textContent = text;
+      });
+      return ended;
+    }
+    if(!render()){
+      var id = setInterval(function(){ if(render()) clearInterval(id); }, 1000);
+    }
   })();
   (function(){
     // Close the mobile menu drawer after choosing an anchor.
