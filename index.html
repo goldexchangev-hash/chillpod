@@ -61,7 +61,14 @@
   .nav a:hover{color:var(--navy);background:var(--cyan-soft);}
   .nav a:active{transform:scale(.96);}
   .nav a:focus-visible{outline:none;color:var(--navy);box-shadow:0 0 0 3px rgba(10,163,214,.45);}
-  .hdr .btn{padding:11px 18px;font-size:.95rem;min-height:42px;border-radius:10px;box-shadow:none;}
+  .hdr .btn{padding:9px 16px;font-size:.92rem;min-height:36px;border-radius:9px;box-shadow:none;}
+  /* header CTA: button stacked over a mini icon strip; total fits the 62px header */
+  .hdr-cta{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:none;}
+  .hdr .payrow{margin:0;}
+  .hdr .payrow-icons{flex-wrap:nowrap;gap:3px;}
+  .hdr .payrow .pay{width:26px;height:17px;border-radius:3px;}
+  @media(max-width:600px){ .hdr .payrow-icons{gap:2px;} .hdr .payrow .pay{width:22px;height:14px;border-radius:3px;} }
+  @media(max-width:340px){ .hdr .payrow{display:none;} }
 
   /* hero (video-first) */
   .hero{padding:44px 0 26px;position:relative;overflow:hidden;}
@@ -279,7 +286,21 @@
   <div class="wrap hdr">
     <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="#0AA3D6"/><g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none"><path d="M12 6V18 M6.8 9L17.2 15 M17.2 9L6.8 15 M10.2 6.9L12 6L13.8 6.9 M10.2 17.1L12 18L13.8 17.1 M15.4 8.2L17.2 9L16.8 10.9 M8.6 15.8L6.8 15L7.2 13.1 M8.6 8.2L6.8 9L7.2 10.9 M15.4 15.8L17.2 15L16.8 13.1"/></g></svg></span><span class="word">iChill<b>Pod</b></span></div>
     <nav class="nav"><a href="#why">Why</a><a href="#proof">Proof</a><a href="#details">FAQ</a><a href="#offer">Buy</a></nav>
-    <a href="#offer" class="btn">Buy now</a>
+    <div class="hdr-cta">
+      <a href="#offer" class="btn">Buy now</a>
+      <div class="payrow" role="group" aria-label="Accepted payment methods">
+        <div class="payrow-icons">
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Google Pay"><use href="#pay-google"/></svg>
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Amazon Pay"><use href="#pay-amazon"/></svg>
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="PayPal"><use href="#pay-paypal"/></svg>
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Visa"><use href="#pay-visa"/></svg>
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Mastercard"><use href="#pay-mastercard"/></svg>
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="American Express"><use href="#pay-amex"/></svg>
+          <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Discover"><use href="#pay-discover"/></svg>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
