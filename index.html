@@ -97,25 +97,38 @@
   .benefits li{display:flex;gap:13px;align-items:flex-start;font-size:1.04rem;}
   .benefits li .ck{flex:none;width:26px;height:26px;border-radius:50%;background:var(--cyan);display:flex;align-items:center;justify-content:center;margin-top:1px;}
 
-  /* proof */
-  .sauna{background:linear-gradient(180deg,rgba(8,32,58,.84),rgba(11,42,74,.92)),url('sauna-bg.jpg') center/cover no-repeat;color:#eaf2f8;}
-  .sauna h2{color:#fff;} .sauna .sec-head p{color:#bcd0e2;}
-  .demo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 0;}
-  .demo .card{border-radius:18px;position:relative;aspect-ratio:5/6;display:flex;flex-direction:column;justify-content:space-between;padding:18px;color:#fff;}
-  .demo .bare{background:linear-gradient(165deg,#7a241c,#FF6B5A);}
-  .demo .pod{background:linear-gradient(165deg,#073b54,#0AA3D6);}
-  .demo .badge{background:rgba(255,255,255,.18);border-radius:30px;padding:4px 11px;font-size:.74rem;font-weight:600;align-self:flex-start;}
-  .demo .timer{font-family:"Space Grotesk";font-weight:700;font-size:2.6rem;line-height:1;}
-  .demo .label{font-weight:600;margin-top:6px;}
-  .demo .stat{font-size:.82rem;opacity:.92;margin-top:4px;}
-  .bridge{text-align:center;font-family:"Space Grotesk";font-weight:600;font-size:clamp(1.2rem,3vw,1.55rem);color:#fff;margin:26px auto 0;max-width:600px;}
-  .bridge .cool{color:#6fd9ff;}
-  .honesty{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:6px 14px;font-size:.8rem;margin-top:16px;color:#dceaf5;}
-  .sauna .fineprint{color:#9fc0d8;font-size:.84rem;margin-top:14px;}
-  .proof-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:36px;align-items:center;margin-bottom:6px;}
+  /* proof — ported from the Shopify "iChillPod Proof" section (Dawn rem = 10px, converted to px) */
+  .proof{background:linear-gradient(180deg,#0E3357,#0B2A4A);color:#eaf2f8;padding:55px 0 50px;}
+  .proof-top{display:grid;grid-template-columns:1fr 1fr;gap:32px 40px;align-items:center;}
+  .proof-top>*{min-width:0;}
   .proof-photo{margin:0;}
-  .proof-photo img{width:100%;border-radius:20px;aspect-ratio:3/4;object-fit:cover;border:1px solid rgba(255,255,255,.14);box-shadow:0 26px 60px -28px rgba(0,0,0,.7);}
-  .proof-photo figcaption{text-align:center;font-size:.82rem;color:#9fc0d8;margin-top:10px;}
+  .proof-photo img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:20px;box-shadow:0 22px 55px -24px rgba(0,0,0,.55);}
+  .proof-photo figcaption{margin:10px 0 0;text-align:center;font-size:.78rem;opacity:.8;}
+  .proof-eyebrow{font-family:"Space Grotesk";font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;margin:0 0 12px;color:#FFB08A;}
+  .proof-heading{color:#fff;font-weight:700;font-size:clamp(1.5rem,3.6vw,2.25rem);line-height:1.08;letter-spacing:-.01em;margin:0 0 12px;}
+  .proof-context{font-size:.94rem;line-height:1.5;margin:0 0 20px;opacity:.88;}
+  .proof-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .proof-card{border-radius:16px;padding:16px 14px 18px;min-height:180px;display:flex;flex-direction:column;justify-content:flex-start;color:#fff;box-shadow:0 16px 40px -22px rgba(0,0,0,.45);}
+  .proof-card--bare{background:linear-gradient(160deg,#FF7A5C 0%,#E24A3A 100%);}
+  .proof-card--pod{background:linear-gradient(160deg,#1EC3F0 0%,#0A8FBA 100%);}
+  .proof-badge{display:inline-flex;align-self:flex-start;font-family:"Space Grotesk";font-weight:600;font-size:.72rem;padding:4.5px 9px;border-radius:999px;background:rgba(255,255,255,.18);margin-bottom:14px;}
+  .proof-time{font-family:"Space Grotesk";font-weight:700;font-size:clamp(1.5rem,3vw,1.9rem);line-height:1.05;margin:0 0 8px;letter-spacing:-.02em;white-space:nowrap;}
+  .proof-result{margin:0;font-size:.84rem;line-height:1.4;font-weight:600;}
+  .proof-footer{margin:36px auto 0;text-align:center;max-width:720px;}
+  .proof-closer{font-family:"Space Grotesk";font-weight:600;font-size:clamp(1.125rem,3vw,1.625rem);line-height:1.25;color:#fff;margin:0 0 16px;}
+  .proof-pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:0 auto 12px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-size:.75rem;opacity:.9;max-width:100%;}
+  .proof-rating{margin:0;font-size:.72rem;opacity:.55;line-height:1.45;}
+  @media(max-width:989px){
+    .proof-top{grid-template-columns:1fr;gap:24px;}
+    .proof-photo{order:-1;max-width:480px;margin:0 auto;width:100%;}
+    .proof-heading{font-size:clamp(1.375rem,7vw,1.875rem);}
+  }
+  @media(max-width:549px){
+    .proof{padding:32px 0 36px;}
+    .proof-cards{grid-template-columns:1fr;}
+    .proof-card{min-height:0;}
+    .proof-footer{margin-top:24px;}
+  }
 
   /* uses — ported from the Shopify "iChillPod Uses" section (Dawn rem = 10px, converted to px) */
   .chillpod-uses{background:var(--sand);padding:50px 0;color:var(--navy);}
@@ -188,12 +201,11 @@
     .hero-figure{order:-1;}
     .hero-figure video{max-width:480px;}
     .hero{padding-bottom:40px;}
-    .proof-grid{grid-template-columns:1fr;gap:26px;}
     .hero .sub{max-width:none;}
     .stickybar{display:flex;}
     section{padding:46px 0;}
   }
-  @media(max-width:480px){ .demo .timer{font-size:2.1rem;} .steps3 .s{min-width:110px;} }
+  @media(max-width:480px){ .steps3 .s{min-width:110px;} }
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     .reveal{opacity:1!important;transform:none!important;transition:none!important;}
@@ -296,36 +308,36 @@
   </div>
 </section>
 
-<!-- PROOF -->
-<section class="sauna" id="proof">
+<!-- PROOF (ported from the Shopify "iChillPod Proof" section) -->
+<section class="proof" id="proof">
   <div class="wrap">
-    <div class="proof-grid reveal">
+    <div class="proof-top reveal">
       <figure class="proof-photo">
-        <img src="sauna.jpg?v=2" alt="A woman keeping her phone working inside a hot sauna using iChillPod" loading="lazy">
+        <img src="sauna.jpg?v=2" alt="A woman keeping her phone working inside a hot sauna using iChillPod" loading="lazy" width="768" height="1024">
         <figcaption>Our real 200&deg;F sauna test.</figcaption>
       </figure>
-      <div>
-        <div class="sec-head">
-          <div class="eyebrow heat" style="color:#ff9182;">The Proof</div>
-          <h2>8 Minutes Bare. 30 Minutes in iChillPod.</h2>
-          <p>We put it in a 200&deg;F sauna — about twice the temperature your phone is rated for.</p>
-        </div>
-        <div class="demo">
-          <div class="card bare">
-            <span class="badge">Bare phone &#128293;</span>
-            <div><div class="timer">8:00</div><div class="label">Thermal shutdown.</div><div class="stat">Screen black. Recording dead.</div></div>
+      <div class="proof-copy">
+        <p class="proof-eyebrow">THE PROOF</p>
+        <h2 class="proof-heading">8 Minutes Bare. 30 Minutes+ in iChillPod.</h2>
+        <p class="proof-context">We put it in a 200&deg;F sauna &mdash; about twice the temperature your phone is rated for.</p>
+        <div class="proof-cards">
+          <div class="proof-card proof-card--bare">
+            <span class="proof-badge">Bare phone &#128293;</span>
+            <p class="proof-time">8 minutes</p>
+            <p class="proof-result">Thermal shutdown. Screen black. Recording dead.</p>
           </div>
-          <div class="card pod">
-            <span class="badge">In iChillPod &#10052;&#65039;</span>
-            <div><div class="timer">30:00</div><div class="label">Still going.</div><div class="stat">Cool, on, and recording.</div></div>
+          <div class="proof-card proof-card--pod">
+            <span class="proof-badge">In iChillPod &#10052;&#65039;</span>
+            <p class="proof-time">30 minutes+</p>
+            <p class="proof-result">Still going. Cool, on, and recording.</p>
           </div>
         </div>
       </div>
     </div>
-    <p class="bridge">If it survives 200&deg;F, a hot beach bag <span class="cool">doesn't stand a chance.</span></p>
-    <div class="center">
-      <span class="honesty">&#9878;&#65039; "8 vs 30 minutes" is from our own testing — not a third-party stat.</span>
-      <p class="fineprint">Phones are built to run between 32&deg;F and 95&deg;F. &mdash; Apple &amp; Samsung Support.</p>
+    <div class="proof-footer reveal">
+      <p class="proof-closer">If it survives 200&deg;F, a hot beach bag doesn't stand a chance.</p>
+      <p class="proof-pill">"8 vs 30 minutes+" is from our own testing &mdash; not a third-party stat.</p>
+      <p class="proof-rating">Phones are built to run between 32&deg;F and 95&deg;F. &mdash; Apple &amp; Samsung Support.</p>
     </div>
   </div>
 </section>
