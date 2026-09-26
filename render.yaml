@@ -4,6 +4,9 @@ services:
     runtime: static
     staticPublishPath: ./
     # no buildCommand — index.html is served as-is
-    # To add a custom domain later, uncomment and edit:
-    # domains:
-    #   - chillpod.com
+    # Custom domains (see DOMAIN.md for the required GoDaddy DNS records).
+    # Render auto-adds a www <-> root redirect for whichever one you list;
+    # both are listed here so the intent is explicit.
+    domains:
+      - ichillpod.com
+      - www.ichillpod.com
