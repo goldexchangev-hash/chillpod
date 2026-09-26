@@ -19,6 +19,8 @@ The site is a single static file (`index.html`, 468 lines, 101.7 KB) plus media,
 4. **Visible placeholder copy in the FAQ.** Ten `[TBC]` / `[X hours]` / `[Insert runtime…]` yellow-dashed placeholders are live (`:346-370`), including in the "Specs & Fit" and "Shipping & Returns" answers.
 5. **Fake urgency.** "Launch sale ends in 59:53" is an evergreen 1-hour timer that silently resets from `localStorage` (`:465`). Combined with a never-charged strikethrough "was $39", this is an FTC / consumer-protection exposure and a trust killer if anyone notices.
 
+6. **No "Patent Pending" notice anywhere.** The owner has a draft provisional application ("Freezer Pack with Cell Phone Recess") and believes it is filed, yet `index.html`, `README.md`, and the live page contain zero occurrences of "patent". A patent-pending notice is a cheap trust signal and copycat deterrent — but only once filing is confirmed, and **never with an invented application number** (the draft shows none). See "Patent / legal flags" below.
+
 Three sibling **draft** PRs already exist and overlap with several fixes here. They were not merged or modified by this audit; see "Relationship to existing draft PRs" at the end.
 
 ---
@@ -55,6 +57,7 @@ Three sibling **draft** PRs already exist and overlap with several fixes here. T
 | I13 | No analytics or conversion tracking of any kind | whole file | There is no GA4, Meta Pixel, TikTok pixel, or Shopify tracking. You cannot measure the funnel at launch. Add with a consent banner if you target EU/UK. |
 | I14 | Google Fonts CSS is render-blocking | `:9-11` | Two families × 7 weights. Self-host or subset to 2–3 weights, and/or use the `media="print" onload="this.media='all'"` pattern with a system-font fallback. |
 | I15 | `render.yaml` has no custom domain and no headers | `render.yaml:5-9` | Domain is commented out and still says `chillpod.com`. Draft PR #2 fixes the domain; nothing yet adds `Cache-Control`, `Strict-Transport-Security`, `X-Frame-Options`, `Referrer-Policy`. Live response only sends `x-content-type-options`. |
+| I16 | No "Patent Pending" notice on the site (trust / copycat deterrence) | `index.html` — no match for "patent" anywhere; footer `:378-382`, product name `:195`/`:206`, offer card `:309-331` | Owner reports a provisional application ("Freezer Pack with Cell Phone Recess") is filed. If confirmed, add the notice in three places: next to the product name in the offer card, in the product/spec section, and in the footer. Copy: **"Patent Pending"** (or **"U.S. Patent Pending"** once the USPTO filing receipt is in hand). **Do not add an application number** — the draft shows none, and none should be invented. Do not add the notice at all until the filing is confirmed (falsely marking "patent pending" is prohibited under 35 U.S.C. § 292). Not legal advice; see "Patent / legal flags". |
 
 ### Nice-to-have
 
@@ -147,6 +150,7 @@ Three sibling **draft** PRs already exist and overlap with several fixes here. T
 | Contact email | **Fail** | `hello@chillpod.com` (`:324`) — wrong domain (C2). Real inbox per PR #2: `ichillpod@gmail.com`. Consider a domain mailbox/forward (`hello@ichillpod.com`) for credibility. |
 | FAQ content | **Fail** | 10 placeholders (C4). Remaining answers are short but honest. |
 | Claims / legal | **Fail** | Fake timer + reference price (C5); guarantee and free-shipping promises with no policy pages (C6); "Apple & Samsung Support" citation with no link (`:278`); "about twice the temperature your phone is rated for" (`:261`) — 95°F × 2 = 190°F, fine for 200°F but keep it consistent with the actual test footage. |
+| Patent-pending notice | **Missing** | Zero occurrences of "patent" in `index.html`, `README.md`, or the live page. Add "Patent Pending" (offer card, product section, footer) **only after** the provisional filing is confirmed; no application number until the owner supplies one (I16). |
 | Other embarrassments | | Yellow dashed `[TBC]` chips; "Bu…" truncated sticky button on every phone; 8 vs 30 cards half off-screen; README says "chillpod.com"; unused demo videos publicly downloadable (N2); no way to contact the company except the wrong email. |
 
 ---
@@ -161,6 +165,7 @@ Research notes that informed these (brief web research, Sept 2026): top-converti
 - **Hero:** Split-screen side-by-side loop: bare phone hitting the thermal-shutdown screen at 8:00 on the left, phone in iChillPod still recording at 30:00 on the right, with a live-updating temperature/time overlay. Headline: "200°F sauna. 8 minutes bare. 30 minutes in iChillPod." Sub: "The only phone cooler that pulls heat *out*." Price + Buy directly under the headline on mobile; the video sits behind/beside it, not above it.
 - **Product section:** Cutaway render of the frozen core with conduction arrows; a spec sheet laid out like a lab card (fit range, freeze time, runtime, weight, condensation note) — every cell filled with a real number; a three-column comparison (insulated pouch / ice-pack case / iChillPod) that pre-empts "isn't this just a pouch?".
 - **CTA placement:** Buy in hero, a "Buy" cell at the bottom of the spec card, tier cards that *are* the buttons (Single / 2-Pack), sticky bottom bar with price. One CTA verb everywhere ("Get iChillPod").
+- **Patent-pending notice:** a mono-label "PATENT PENDING" cell in the lab-card spec sheet (fits the data-sheet language), a small badge next to the product name in the offer card, and the footer legal line. No number.
 - **Why it converts better:** The brand's single strongest asset is a real, repeatable test; this direction makes the test the entire visual language, which matches how outdoor/gear buyers evaluate (specific numbers, not vibes). It also visually separates iChillPod from PHOOZY-style pouches. Risk: darker palette needs careful contrast; keep body text ≥ 7:1.
 
 ### Variation 2 — "Summer Kit" (bright lifestyle, ad-continuity)
@@ -169,6 +174,7 @@ Research notes that informed these (brief web research, Sept 2026): top-converti
 - **Hero:** Full-width lifestyle photo/video (beach, phone sliding into the pod), headline "Keep filming at 100°F." Sub: "Freeze it, slide your phone in, go anywhere hot." Under the headline: star row + "★★★★★ 'Saved my phone at my kid's tournament' — first-name, state" (only once real reviews exist; use "Founder-tested in a 200°F sauna" until then). Price, "Free shipping · 30-day guarantee", Buy — all in the first viewport on 375 px. Ad-to-hero continuity: the hero image should be the same creative as the Meta/TikTok ad.
 - **Product section:** "A day with iChillPod" horizontal story (freeze overnight → pack → swap in the 2-pack → wipe condensation) leading into the offer; product shot carousel (front, slot, core, in-hand for scale); 2-pack framed as "One's always frozen" with the Save $ badge.
 - **CTA placement:** Hero, after the scene band ("Which one's your summer?" → Buy), offer card, sticky bar with price and a tiny guarantee line.
+- **Patent-pending notice:** a small rounded pill ("Patent Pending") in the trust strip under the hero CTA alongside "Free shipping" and "30-day guarantee", repeated beside the product name in the offer card, and in the footer. Keep it quiet — this direction sells the moment, not the mechanism.
 - **Why it converts better:** Impulse/emotional purchase at $29 is driven by imagining the moment (kid's game, beach video). Lifestyle continuity between ad and page is one of the most consistent conversion patterns for Meta/TikTok traffic, and it lets the 2-pack story ("one always frozen") carry the AOV. Risk: needs real photography (current lifestyle shots look AI-generated; buyers notice).
 
 ### Variation 3 — "Cold Hard Facts" (premium tech-accessory minimal)
@@ -177,6 +183,7 @@ Research notes that informed these (brief web research, Sept 2026): top-converti
 - **Hero:** Clean packshot of the pod with a phone half-inserted, headline "The phone cooler that actually cools." One-line sub with the mechanism ("A frozen core pulls heat out by direct contact — no power, no batteries"). Price, Buy, and "Fits iPhone 12–17 and Galaxy S22–S25 (with case)" on the same line — compatibility is the #1 accessory objection.
 - **Product section:** Tech-spec table (dimensions, weight, freeze time, runtime, material, condensation guidance) side-by-side with the comparison table; "In the box"; a short founder/engineering note with a photo (3–4 sentences) explaining why insulation isn't enough.
 - **CTA placement:** Hero, repeated after the spec table, sticky bar; single clean checkout button styled to match Shopify's Shop Pay/Apple Pay so express checkout appears native.
+- **Patent-pending notice:** this is the direction where it earns the most — a small uppercase mono label "PATENT PENDING" directly under the product name in the hero (Apple-style legal caption), a row in the tech-spec table ("Design — Patent pending"), and the footer. Reinforces "engineered, not a novelty".
 - **Why it converts better:** Positions a $29–49 item as a considered, engineered gadget rather than a novelty, which supports the 2-pack price and reduces "is this a gimmick?" hesitation. Very light page (fast on cellular) and the compatibility line up front kills the top objection. Risk: colder tone may under-perform for impulse beach-bag buyers versus Variation 2; strongest for Google Search / comparison-shopping traffic.
 
 **Suggested test plan (proposal only):** ship Variation 2 for paid social traffic and Variation 3 for search traffic, borrowing Variation 1's split-screen proof module in both.
@@ -192,6 +199,7 @@ Research notes that informed these (brief web research, Sept 2026): top-converti
 - Add `width`/`height` on `<img>` to remove CLS.
 
 **Trust signals**
+- "Patent Pending" notice (I16) in the offer card next to the product name, in the product/spec section, and in the footer — only once the provisional filing is confirmed, and without an application number until the owner supplies one.
 - Footer links: Refund policy, Privacy, Terms, Shipping, Contact (with a real address or at least a real email). Shopify will host these; link to them.
 - Guarantee badge and "Secure checkout · Shop Pay / Apple Pay / Google Pay" logos within 300 px of the buy button (real once Shopify Payments is on).
 - "Founder-tested" block with a real photo and 3–4 sentences; sauna footage is already the proof — put a timestamped still from it next to the guarantee.
@@ -225,6 +233,27 @@ Research notes that informed these (brief web research, Sept 2026): top-converti
 - Add GA4 (or Plausible) + Meta Pixel + Shopify's Buy Button attribution; verify "Purchase" events fire from the Shopify thank-you page (needs Shopify's customer-events pixel).
 - Set up Search Console with the sitemap; watch for the `chillpod.com` typo in any ad copy.
 - Add security headers in `render.yaml` (`Strict-Transport-Security`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`).
+
+---
+
+## Patent / legal flags (not legal advice — flags only)
+
+Context supplied by the owner: a draft provisional patent application titled **"Freezer Pack with Cell Phone Recess"** — a thermal freezer pack with a molded phone recess/pan for direct-contact cooling, a fillable working fluid, and a bottle neck + cap. The owner believes it is filed and patent pending. The draft is not in this repository (the `.gitignore` excludes `Ice pack/` and `design_work/`, which is correct — keep CAD and application drafts out of the public repo).
+
+| # | Flag | Why it matters | Suggested action |
+|---|---|---|---|
+| P1 | **No patent or application number appears anywhere in the draft.** | Without a filing receipt / application number the "pending" status is unverified. Marking a product "patent pending" when no application is actually on file is false marking (35 U.S.C. § 292). | Before adding any notice to the site, locate the USPTO filing receipt (or the attorney's confirmation) and record the application number and filing date privately. **Do not put an invented or approximate number on the site.** The site copy should be "Patent Pending" / "U.S. Patent Pending" only. |
+| P2 | **Background section reads "Not Applicable".** | Provisionals are informal, but a thin background/description limits what the later non-provisional can claim priority to — the non-provisional can only rely on subject matter actually disclosed in the provisional. | Have a registered patent attorney/agent review the disclosure for completeness (materials, working fluid, dimensions/tolerances of the recess, alternative embodiments such as the two-pack/swap use, condensation management) before the 12-month non-provisional deadline. |
+| P3 | **Only one claim.** | Fine for a provisional (claims are optional), but a single claim gives no sense of independent/dependent claim strategy or how broad protection will be against pouch-style competitors (e.g., PHOOZY) or generic ice packs. | Attorney to draft a proper claim set for the non-provisional; consider whether a design patent on the recess/pod shape is also worthwhile since the shape is visible in every photo on the site. |
+| P4 | **Public disclosure clock.** | The live site, the sauna video, and any ads are public disclosures. In the U.S. there is a 12-month grace period from first public disclosure; most other jurisdictions have none. If the provisional was filed *after* the site went live, that matters. | Confirm the provisional filing date precedes the first public posting of the product (site launch, social posts, videos). Note the non-provisional (and any PCT/foreign filings) must be filed within 12 months of the provisional. |
+| P5 | **Site copy vs. claim scope.** | Marketing claims ("pulls heat out", "actively removes heat by direct conduction", `:241-244`) describe the mechanism the application presumably covers — good for consistency — but any *specific* numbers added to the FAQ (runtime, fit range, IP rating) should not contradict what the application discloses. | Keep site specs consistent with the application; route any performance claims through the same attorney review. |
+| P6 | **Trademark.** | "iChillPod" / "ChillPod" appear with no ™ and no search was evident. The domain `chillpod.com` is already held by a third party, which hints the name may be contested. | Run a USPTO TESS/Trademark Center search for "ChillPod"/"iChillPod" in Class 9/11; consider a ™ marker now and an application if clear. Not a patent issue, but the same attorney conversation. |
+
+**Site-impact summary (proposal only, not implemented):**
+- Add "Patent Pending" in three places once filing is confirmed: (1) beside the product name in the offer card (`index.html:309-331`), (2) in the product/spec section (the "Specs & Fit" accordion at `:357-364`, or the spec table in any redesign), (3) in the footer legal line (`:381`).
+- Exact copy: **"Patent Pending"**; optionally **"U.S. Patent Pending"** after the owner confirms a U.S. filing. No application number until one is provided.
+- Do **not** add "Patented", "Patent No.", or any number. Do not add the notice at all if filing cannot be confirmed.
+- Optionally add `"additionalProperty"` or a plain sentence in the `Product` JSON-LD description; keep the same wording.
 
 ---
 
@@ -267,4 +296,4 @@ All admin paths are relative to `https://admin.shopify.com/store/<your-store>/`.
 | #2 `Configure ichillpod.com as the Render custom domain` | `cursor/ichillpod-custom-domain-7712` | Fixes C2 (`mailto:ichillpod@gmail.com`), I15 (domains in `render.yaml`), N9 (README), adds `DOMAIN.md`. The live site already resolves correctly, so the DNS part appears done; the `render.yaml`/email/README parts are still only in the draft. |
 | #3 `Landing page: SEO head, pre-order CTAs, FAQ, image perf and mobile fixes` | `cursor/landing-page-seo-conversion-polish-ab63` | Addresses C3 (stacks proof cards ≤ 640 px and reports `scrollWidth === innerWidth` at 360–1280), C4 (removes all placeholders — but check that its replacement FAQ copy contains real, owner-confirmed numbers before merging), I1 (headline-first hero), I4/I10/I11 (OG, JSON-LD, WebP, favicons, `width`/`height`), I9 partly (safe-area padding), N1. It leaves C5 (fake timer) in place and flags it. It does **not** touch C1 (Shopify credentials), I2 (video weight), I3 (cache headers), I5, I6, I7, I8, I13, I14. |
 
-Recommendation for the owner: review and merge #2 and #3 (after confirming the FAQ facts in #3), then work Critical items C1, C5, C6 and Important items I2, I3, I6, I7, I8 in that order. This audit deliberately does not implement any of them.
+Recommendation for the owner: review and merge #2 and #3 (after confirming the FAQ facts in #3), then work Critical items C1, C5, C6 and Important items I2, I3, I6, I7, I8 in that order. In parallel, confirm the provisional filing (application number + date) with a patent attorney so the "Patent Pending" notice (I16) can be added truthfully, and book the attorney review flagged in P1–P4 well ahead of the 12-month non-provisional deadline. This audit deliberately does not implement any of them.
