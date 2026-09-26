@@ -255,7 +255,7 @@ All admin paths are relative to `https://admin.shopify.com/store/<your-store>/`.
 ## D) Branch and PR
 
 - **Branch:** `cursor/launch-readiness-audit-8ada`
-- **Draft PR:** see the PR opened from this branch (URL is recorded in the PR itself and in the final audit message). It contains only this report — no product code changes.
+- **Draft PR:** https://github.com/goldexchangev-hash/chillpod/pull/6 (draft, unmerged). It contains only this report — no product code changes.
 
 ---
 
