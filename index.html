@@ -57,9 +57,11 @@
   .hdr .btn{padding:11px 18px;font-size:.95rem;min-height:42px;border-radius:10px;box-shadow:none;}
 
   /* hero (video-first) */
-  .hero{padding:44px 0 50px;position:relative;overflow:hidden;}
+  .hero{padding:44px 0 26px;position:relative;overflow:hidden;}
   .hero:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(58% 50% at 22% 16%,rgba(10,163,214,.14),transparent 60%),radial-gradient(46% 40% at 92% 90%,rgba(255,107,90,.08),transparent 60%);}
-  .hero-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:46px;align-items:center;}
+  /* Shopify hero + Uses run at a ~912px content width (page-width 1000 − Dawn's 5rem gutters); match it here */
+  .hero .wrap,.chillpod-uses .wrap{max-width:952px;}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;}
   .hero h1{font-size:clamp(2.1rem,5.2vw,3.4rem);font-weight:700;}
   .hero h1 .hl{color:var(--cyan-dark);}
   .hero .sub{font-size:1.14rem;margin-top:16px;max-width:34ch;color:var(--navy-soft);}
@@ -75,8 +77,9 @@
   .trustbar span{display:flex;align-items:center;gap:7px;}
   .vid-wrap{position:relative;}
   .vid-wrap:before{content:"";position:absolute;inset:-8% -6% -6% -6%;z-index:-1;background:radial-gradient(50% 46% at 50% 42%,rgba(10,163,214,.22),transparent 70%);}
-  .hero-figure video{width:100%;max-width:480px;margin:0 auto;border-radius:22px;box-shadow:var(--shadow);background:#1c140e;aspect-ratio:1/1;object-fit:cover;}
-  .vid-cap{text-align:center;font-size:.86rem;color:var(--navy-soft);margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:center;}
+  .hero-figure{margin:0;}
+  .hero-figure video{width:100%;margin:0 auto;border-radius:18px;box-shadow:var(--shadow);background:#1c140e;aspect-ratio:1/1;object-fit:cover;}
+  .vid-cap{text-align:center;font-size:.75rem;color:var(--navy-soft);margin-top:10px;display:flex;gap:8px;align-items:center;justify-content:center;}
   .vid-cap .lv{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(10,163,214,.18);flex:none;}
 
   .sec-head{max-width:640px;}
@@ -183,6 +186,8 @@
     .nav{display:none;}
     .hero-grid{grid-template-columns:1fr;gap:26px;}
     .hero-figure{order:-1;}
+    .hero-figure video{max-width:480px;}
+    .hero{padding-bottom:40px;}
     .proof-grid{grid-template-columns:1fr;gap:26px;}
     .hero .sub{max-width:none;}
     .stickybar{display:flex;}
@@ -232,7 +237,7 @@
     </div>
     <figure class="hero-figure vid-wrap reveal">
       <video class="demo-vid" src="hero-demo.mp4?v=2" poster="hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="iChillPod demo: an overheating phone is set into the cooler in a sauna and comes back on"></video>
-      <figcaption class="vid-cap"><span class="lv"></span> Real demo — watch it cool a phone for use.</figcaption>
+      <figcaption class="vid-cap"><span class="lv"></span> An overheating phone is set into the cooler in a sauna and comes back on.</figcaption>
     </figure>
   </div>
 </section>
