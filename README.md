@@ -31,9 +31,10 @@ branch, and **Apply**. It deploys to a free `*.onrender.com` URL.
 
 ### Custom domain
 
-Add `chillpod.com` later in Render → your site → **Settings → Custom Domains**,
-then add the DNS records at your registrar. (You can also uncomment the `domains:`
-block in `render.yaml`.)
+The live domain is **`ichillpod.com`** (with `www.ichillpod.com` redirecting to
+it). Both are declared in the `domains:` block of `render.yaml`, but Render still
+needs DNS records at GoDaddy before the domain will resolve or get a TLS
+certificate. Follow the step-by-step guide in [`DOMAIN.md`](DOMAIN.md).
 
 ## After it's live
 
