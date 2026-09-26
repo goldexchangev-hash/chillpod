@@ -40,6 +40,11 @@
   .btn.block{width:100%;}
   .btn.lg{font-size:1.18rem;padding:20px 34px;min-height:58px;}
   .cta-micro{font-size:.86rem;color:var(--navy-soft);margin:12px 0 0;}
+  /* payment-method trust row (visual only; checkout is handled by Shopify) */
+  .payrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 0;}
+  .payrow-label{flex:none;font-family:"Space Grotesk";font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-soft);margin-right:4px;}
+  .payrow .pay{flex:none;width:38px;height:24px;display:block;background:#fff;border:1px solid var(--line);border-radius:5px;}
+  .offer-card .payrow{justify-content:center;}
   a:focus-visible,button:focus-visible,.faq-q:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;}
 
   /* header + anchor nav */
@@ -188,11 +193,13 @@
   footer .logo{justify-content:center;color:#dbe7f1;margin-bottom:10px;}
   footer a{color:#bcd0e2;}
 
-  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px;display:none;align-items:center;gap:12px;transform:translateY(120%);transition:transform .3s ease;box-shadow:0 -10px 30px -18px rgba(11,42,74,.4);}
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px;display:none;flex-wrap:wrap;align-items:center;gap:8px 12px;transform:translateY(120%);transition:transform .3s ease;box-shadow:0 -10px 30px -18px rgba(11,42,74,.4);}
   .stickybar.show{transform:translateY(0);}
   .stickybar .txt{font-size:.82rem;font-weight:600;flex:1;}
   .stickybar .txt small{display:block;font-weight:400;color:var(--navy-soft);}
   .stickybar .btn{flex:none;padding:13px 20px;min-height:46px;box-shadow:none;}
+  .stickybar .payrow{flex-basis:100%;justify-content:center;gap:4px;margin:0;}
+  .stickybar .payrow .pay{width:31px;height:20px;border-radius:4px;}
 
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
   .reveal.in{opacity:1;transform:none;}
@@ -219,6 +226,51 @@
 </head>
 <body>
 
+<!-- PAYMENT ICON SPRITE (referenced via <use> under each buy CTA) -->
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="pay-apple" viewBox="0 0 44 28">
+      <path transform="translate(6 7) scale(.58)" fill="#000" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
+      <text x="21" y="18.6" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="600" fill="#000" textLength="17" lengthAdjust="spacingAndGlyphs">Pay</text>
+    </symbol>
+    <symbol id="pay-google" viewBox="0 0 44 28">
+      <g transform="translate(5 7) scale(.583)" fill="none" stroke-width="4">
+        <path d="M18.36 5.64A9 9 0 0 0 4.21 7.5" stroke="#EA4335"/>
+        <path d="M4.21 7.5A9 9 0 0 0 4.21 16.5" stroke="#FBBC05"/>
+        <path d="M4.21 16.5A9 9 0 0 0 18.36 18.36" stroke="#34A853"/>
+        <path d="M18.36 18.36A9 9 0 0 0 21 12M12 12h9" stroke="#4285F4"/>
+      </g>
+      <text x="21" y="18.6" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="500" fill="#5F6368" textLength="17" lengthAdjust="spacingAndGlyphs">Pay</text>
+    </symbol>
+    <symbol id="pay-amazon" viewBox="0 0 44 28">
+      <text x="3" y="14" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" fill="#232F3E" textLength="26" lengthAdjust="spacingAndGlyphs">amazon</text>
+      <text x="31" y="14" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="500" fill="#232F3E" textLength="10" lengthAdjust="spacingAndGlyphs">pay</text>
+      <path d="M4 17.5c6.5 4.5 15.5 4.5 22.5-.3" fill="none" stroke="#FF9900" stroke-width="1.7" stroke-linecap="round"/>
+      <path d="M24.6 15.6l3.6-.6-1.4 3.4z" fill="#FF9900"/>
+    </symbol>
+    <symbol id="pay-paypal" viewBox="0 0 44 28">
+      <text x="6" y="18.6" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="800" font-style="italic" fill="#003087" textLength="17" lengthAdjust="spacingAndGlyphs">Pay</text>
+      <text x="23.5" y="18.6" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="11.5" font-weight="800" font-style="italic" fill="#009CDE" textLength="15" lengthAdjust="spacingAndGlyphs">Pal</text>
+    </symbol>
+    <symbol id="pay-visa" viewBox="0 0 44 28">
+      <text x="22" y="18.8" text-anchor="middle" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="12.5" font-weight="800" font-style="italic" fill="#1A1F71" textLength="28" lengthAdjust="spacingAndGlyphs">VISA</text>
+    </symbol>
+    <symbol id="pay-mastercard" viewBox="0 0 44 28">
+      <circle cx="17" cy="14" r="7.5" fill="#EB001B"/>
+      <circle cx="27" cy="14" r="7.5" fill="#F79E1B"/>
+      <path d="M22 8.41A7.5 7.5 0 0 1 22 19.59A7.5 7.5 0 0 1 22 8.41z" fill="#FF5F00"/>
+    </symbol>
+    <symbol id="pay-amex" viewBox="0 0 44 28">
+      <rect width="44" height="28" rx="5" fill="#006FCF"/>
+      <text x="22" y="18" text-anchor="middle" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="800" fill="#fff" textLength="30" lengthAdjust="spacingAndGlyphs">AMEX</text>
+    </symbol>
+    <symbol id="pay-discover" viewBox="0 0 44 28">
+      <text x="19" y="17" text-anchor="middle" font-family="Figtree,system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="800" fill="#231F20" textLength="27" lengthAdjust="spacingAndGlyphs">DISCOVER</text>
+      <circle cx="37" cy="14" r="4" fill="#F76F20"/>
+    </symbol>
+  </defs>
+</svg>
+
 <!-- HEADER -->
 <header class="site">
   <div class="wrap hdr">
@@ -240,6 +292,17 @@
           <div class="priceline"><span class="amt">$29</span><span class="was">$39</span><span class="price-note">Free shipping &middot; 30-day money-back guarantee</span></div>
           <div class="saleline">&#128293; Launch sale ends in <span class="countdown">--:--:--</span></div>
           <a href="#offer" class="btn block lg">Buy now</a>
+          <div class="payrow" role="group" aria-label="Accepted payment methods">
+            <span class="payrow-label">We accept</span>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Google Pay"><use href="#pay-google"/></svg>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Amazon Pay"><use href="#pay-amazon"/></svg>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="PayPal"><use href="#pay-paypal"/></svg>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Visa"><use href="#pay-visa"/></svg>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Mastercard"><use href="#pay-mastercard"/></svg>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="American Express"><use href="#pay-amex"/></svg>
+            <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Discover"><use href="#pay-discover"/></svg>
+          </div>
           <p class="cta-micro">Freeze it once. Slide your phone in. Keep it cool all summer.</p>
         </div>
       </div>
@@ -366,6 +429,17 @@
       </div>
       <div id="chillpod-buy-final"></div>
       <a id="chillpod-buy-final-fallback" href="mailto:hello@chillpod.com?subject=iChillPod%20pre-order" class="btn block lg">Get iChillPod</a>
+      <div class="payrow" role="group" aria-label="Accepted payment methods">
+        <span class="payrow-label">We accept</span>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Google Pay"><use href="#pay-google"/></svg>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Amazon Pay"><use href="#pay-amazon"/></svg>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="PayPal"><use href="#pay-paypal"/></svg>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Visa"><use href="#pay-visa"/></svg>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Mastercard"><use href="#pay-mastercard"/></svg>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="American Express"><use href="#pay-amex"/></svg>
+        <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Discover"><use href="#pay-discover"/></svg>
+      </div>
       <p class="cta-micro">30-day money-back guarantee.</p>
       <div class="glist">
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#0AA3D6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> 30-Day Guarantee</span>
@@ -432,6 +506,16 @@
 <div class="stickybar" id="stickybar" aria-hidden="true">
   <div class="txt">iChillPod<small>30-day money-back guarantee</small></div>
   <a href="#offer" class="btn">Buy now</a>
+  <div class="payrow" role="group" aria-label="Accepted payment methods">
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Google Pay"><use href="#pay-google"/></svg>
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Amazon Pay"><use href="#pay-amazon"/></svg>
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="PayPal"><use href="#pay-paypal"/></svg>
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Visa"><use href="#pay-visa"/></svg>
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Mastercard"><use href="#pay-mastercard"/></svg>
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="American Express"><use href="#pay-amex"/></svg>
+    <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Discover"><use href="#pay-discover"/></svg>
+  </div>
 </div>
 
 <!-- SCRIPTS -->
