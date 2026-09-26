@@ -163,18 +163,26 @@ def _http_json(
     url: str,
     headers: Dict[str, str],
     payload: Optional[Dict[str, Any]] = None,
+    form: Optional[Dict[str, str]] = None,
 ) -> Dict[str, Any]:
     """Perform one HTTPS request and return the parsed JSON body.
 
+    `payload` is sent as application/json; `form` is sent as
+    application/x-www-form-urlencoded (used only for the OAuth token exchange).
     Request bodies are never included in errors: they may contain secrets.
     """
     data = None
     hdrs = dict(headers)
     hdrs.setdefault("Accept", "application/json")
     hdrs.setdefault("User-Agent", "chillpod-shopify-setup/1.0 (python-stdlib)")
+    if payload is not None and form is not None:
+        raise ValueError("pass either payload (JSON) or form (urlencoded), not both")
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
         hdrs["Content-Type"] = "application/json"
+    elif form is not None:
+        data = urllib.parse.urlencode(form).encode("utf-8")
+        hdrs["Content-Type"] = "application/x-www-form-urlencoded"
 
     req = urllib.request.Request(url, data=data, method=method, headers=hdrs)
     try:
@@ -213,14 +221,18 @@ class ShopifyClient:
     # -- auth ---------------------------------------------------------------
 
     def fetch_access_token(self) -> None:
-        """POST /admin/oauth/access_token (grant_type=client_credentials)."""
+        """POST /admin/oauth/access_token (grant_type=client_credentials).
+
+        Shopify requires the credentials as application/x-www-form-urlencoded
+        form fields, not a JSON body.
+        """
         url = f"https://{self.store}/admin/oauth/access_token"
-        body = {
+        form = {
             "grant_type": "client_credentials",
             "client_id": self._client_id,
             "client_secret": self._client_secret,
         }
-        resp = _http_json("POST", url, headers={}, payload=body)
+        resp = _http_json("POST", url, headers={}, form=form)
         token = resp.get("access_token")
         if not token or not isinstance(token, str):
             raise ShopifyError(200, "POST", url,
