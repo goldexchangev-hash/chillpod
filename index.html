@@ -41,10 +41,12 @@
   .btn.lg{font-size:1.18rem;padding:20px 34px;min-height:58px;}
   .cta-micro{font-size:.86rem;color:var(--navy-soft);margin:12px 0 0;}
   /* payment-method trust row (visual only; checkout is handled by Shopify) */
-  .payrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 0;}
-  .payrow-label{flex:none;font-family:"Space Grotesk";font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-soft);margin-right:4px;}
+  .payrow{margin:12px 0 0;}
+  .payrow-label{display:block;font-family:"Space Grotesk";font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-soft);margin-bottom:6px;}
+  .payrow-icons{display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
   .payrow .pay{flex:none;width:38px;height:24px;display:block;background:#fff;border:1px solid var(--line);border-radius:5px;}
-  .offer-card .payrow{justify-content:center;}
+  .offer-card .payrow-icons{justify-content:center;}
+  @media(max-width:480px){ .buybox .payrow-icons,.offer-card .payrow-icons{display:grid;grid-template-columns:repeat(4,38px);} }
   a:focus-visible,button:focus-visible,.faq-q:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;}
 
   /* header + anchor nav */
@@ -198,7 +200,8 @@
   .stickybar .txt{font-size:.82rem;font-weight:600;flex:1;}
   .stickybar .txt small{display:block;font-weight:400;color:var(--navy-soft);}
   .stickybar .btn{flex:none;padding:13px 20px;min-height:46px;box-shadow:none;}
-  .stickybar .payrow{flex-basis:100%;justify-content:center;gap:4px;margin:0;}
+  .stickybar .payrow{flex-basis:100%;margin:0;}
+  .stickybar .payrow-icons{justify-content:center;gap:4px;}
   .stickybar .payrow .pay{width:31px;height:20px;border-radius:4px;}
 
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
@@ -294,6 +297,7 @@
           <a href="#offer" class="btn block lg">Buy now</a>
           <div class="payrow" role="group" aria-label="Accepted payment methods">
             <span class="payrow-label">We accept</span>
+            <div class="payrow-icons">
             <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
             <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Google Pay"><use href="#pay-google"/></svg>
             <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Amazon Pay"><use href="#pay-amazon"/></svg>
@@ -302,6 +306,7 @@
             <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Mastercard"><use href="#pay-mastercard"/></svg>
             <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="American Express"><use href="#pay-amex"/></svg>
             <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Discover"><use href="#pay-discover"/></svg>
+            </div>
           </div>
           <p class="cta-micro">Freeze it once. Slide your phone in. Keep it cool all summer.</p>
         </div>
@@ -431,6 +436,7 @@
       <a id="chillpod-buy-final-fallback" href="mailto:hello@chillpod.com?subject=iChillPod%20pre-order" class="btn block lg">Get iChillPod</a>
       <div class="payrow" role="group" aria-label="Accepted payment methods">
         <span class="payrow-label">We accept</span>
+        <div class="payrow-icons">
         <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
         <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Google Pay"><use href="#pay-google"/></svg>
         <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Amazon Pay"><use href="#pay-amazon"/></svg>
@@ -439,6 +445,7 @@
         <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Mastercard"><use href="#pay-mastercard"/></svg>
         <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="American Express"><use href="#pay-amex"/></svg>
         <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Discover"><use href="#pay-discover"/></svg>
+        </div>
       </div>
       <p class="cta-micro">30-day money-back guarantee.</p>
       <div class="glist">
@@ -507,6 +514,7 @@
   <div class="txt">iChillPod<small>30-day money-back guarantee</small></div>
   <a href="#offer" class="btn">Buy now</a>
   <div class="payrow" role="group" aria-label="Accepted payment methods">
+    <div class="payrow-icons">
     <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
     <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Google Pay"><use href="#pay-google"/></svg>
     <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Amazon Pay"><use href="#pay-amazon"/></svg>
@@ -515,6 +523,7 @@
     <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Mastercard"><use href="#pay-mastercard"/></svg>
     <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="American Express"><use href="#pay-amex"/></svg>
     <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Discover"><use href="#pay-discover"/></svg>
+    </div>
   </div>
 </div>
 
