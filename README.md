@@ -37,9 +37,9 @@ block in `render.yaml`.)
 
 ## After it's live
 
-- Purchase CTAs (class `js-shopify-buy`) link to the Shopify product page
-  `https://ichillpod.myshopify.com/products/chillpod`. To send buyers straight to
-  checkout, set `VARIANT_ID` in the "SHOPIFY PURCHASE FLOW" script at the bottom of
-  `index.html` to the numeric **variant** id of the chillpod product; the CTAs then use
-  the cart permalink `https://ichillpod.myshopify.com/cart/<VARIANT_ID>:1`.
+- All purchase CTAs link to the Shopify cart permalink
+  `https://ichillpod.myshopify.com/cart/67578266419311:1` (adds one iChillPod,
+  variant `67578266419311` of product `15554226356335`, and goes straight to
+  checkout). If the variant ever changes, update that URL in the four `<a>` tags
+  in `index.html` (header, hero, offer card, mobile sticky bar).
 - Fill remaining placeholders: real price, phone-fit dimensions, real reviews.
