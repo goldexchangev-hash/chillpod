@@ -1,0 +1,39 @@
+--- a/snippets/header-drawer.liquid
++++ b/snippets/header-drawer.liquid
+@@ -132,7 +132,10 @@
+                         aria-current="page"
+                       {% endif %}
+                     >
++                      {%- comment -%} COMING SOON PATCH: relabel the Buy Now menu item while the toggle is on {%- endcomment -%}
++                      {%- if settings.coming_soon_mode and link.handle == 'buy-now' -%}{{ settings.coming_soon_label | default: 'Coming Soon' | escape }}{%- else -%}
+                       {{ link.title | escape }}
++                      {%- endif -%}
+                     </a>
+                   {%- endif -%}
+                 </li>
+--- a/snippets/header-mega-menu.liquid
++++ b/snippets/header-mega-menu.liquid
+@@ -84,7 +84,10 @@
+                 class="header__active-menu-item"
+               {% endif %}
+             >
++              {%- comment -%} COMING SOON PATCH: relabel the Buy Now menu item while the toggle is on {%- endcomment -%}
++              {%- if settings.coming_soon_mode and link.handle == 'buy-now' -%}{{ settings.coming_soon_label | default: 'Coming Soon' | escape }}{%- else -%}
+               {{- link.title | escape -}}
++              {%- endif -%}
+             </span>
+           </a>
+         {%- endif -%}
+--- a/snippets/header-dropdown-menu.liquid
++++ b/snippets/header-dropdown-menu.liquid
+@@ -93,7 +93,10 @@
+                 class="header__active-menu-item"
+               {% endif %}
+             >
++              {%- comment -%} COMING SOON PATCH: relabel the Buy Now menu item while the toggle is on {%- endcomment -%}
++              {%- if settings.coming_soon_mode and link.handle == 'buy-now' -%}{{ settings.coming_soon_label | default: 'Coming Soon' | escape }}{%- else -%}
+               {{- link.title | escape -}}
++              {%- endif -%}
+             </span>
+           </a>
+         {%- endif -%}
