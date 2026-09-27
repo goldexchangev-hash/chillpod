@@ -1,228 +1,175 @@
-# Temporarily disable ordering on ichillpod.com — inventory hard stop, storefront unchanged
+# Ordering paused on ichillpod.com — inventory hard stop + "Sold out" → "Coming soon" (reversible)
 
-**Revised plan (merchant decision, 2026-09-27):** the Dawn storefront keeps its exact current
-appearance — Buy Now buttons, homepage CTAs, header links, Shop Pay / accelerated checkout,
-all purchase UI stay as they are. Orders are stopped by **Shopify inventory only**. The
-"Coming soon" message is shown **only where a customer actually attempts to check out**
-(cart / checkout), never on the product page, homepage or header.
+**Nothing in this repo changes the live store.** This document tells a human what to do in
+**Shopify Admin on the live Dawn theme**. Merging this PR does not touch ichillpod.com.
 
-**Nothing in this repo changes the live store.** This PR is documentation plus one optional
-copy-paste cart-only snippet. Orders on ichillpod.com are blocked only after a human performs
-§1 in Shopify Admin. Merging this PR by itself does nothing to live checkout.
+## Current live state (observed read-only 2026-09-27, after the merchant's Admin changes)
 
 | | |
 | --- | --- |
-| Live storefront | https://ichillpod.com (Shopify Online Store) |
-| Shop | `yz0m1m-ru.myshopify.com` (admin handle `ichillpod`; `ichillpod.myshopify.com` 301s to `ichillpod.com`) |
-| Live theme | **Dawn — payment icons preview**, Dawn schema **16.0.0**, theme id `188025995375`, role `main`. Cart type: *notification* (no cart drawer) |
-| Product | `iChillPod - No-Power Phone Cooler for Saunas`, handle `chillpod`, product id `15554226356335`, status Active |
-| Variant | `Default Title`, variant id **`67578266419311`**, **$29.95**, single variant |
-| Inventory today | **Not tracked** (`inventory_management: null`) → unlimited; `available: true` |
-| Cart permalink to neutralise | `https://ichillpod.com/cart/67578266419311:1` (also via `ichillpod.myshopify.com/cart/67578266419311:1`; used by this repo's landing page) — today it **302s straight into Shop Pay checkout** |
-| This repo | `goldexchangev-hash/chillpod` — static Render landing page. **Not** the Dawn theme. |
+| Live storefront / shop | https://ichillpod.com — `yz0m1m-ru.myshopify.com` (`ichillpod.myshopify.com` 301s to it) |
+| Live theme | **Dawn — payment icons preview**, Dawn schema **16.0.0**, theme id `188025995375`, role `main`, cart type *notification* (no drawer), English only |
+| Product / variant | `iChillPod - No-Power Phone Cooler for Saunas`, handle `chillpod`, product `15554226356335`, variant **`67578266419311`** (`Default Title`, single variant), **$29.95**, status Active |
+| **Inventory hard stop** | **IN PLACE.** `inventory_management: "shopify"` (Track quantity on), `available: false`. Merchant set quantity **0**. Keep *Continue selling when out of stock* **off** — that is what makes `available` false. **Do not undo.** |
+| Sold-out label | `products.product.sold_out` is **already rendered as "Coming soon "** (note the trailing space) on the PDP button, the price badge and collection cards. `Sold out` no longer appears in the homepage, PDP, cart or `/collections/all` HTML. |
+| Everything else | Buy Now / Get iChillPod CTAs, header menu, homepage sections, sticky bar, Shop Pay markup: **unchanged**. PDP button is present, same style, `disabled`. |
+| Before the change | Inventory was **not tracked** (unlimited). Record this: revert = turn *Track quantity* off again (or enter the real count). |
 
-Facts read from the public storefront (`/products/chillpod.js`, page HTML, `Shopify.theme`) on
-2026-09-27. Re-check before applying.
-
-Message to use where a message is shown: **"Coming soon — should be available within the next 30 days."**
+Copy to use: short label **Coming soon**; longer notice (cart/checkout attempt only, optional)
+**"Coming soon — should be available within the next 30 days."**
 
 ---
 
-## 0. Capture the current state before changing anything
+## 1. Hard stop — keep as is (Shopify Admin)
 
-Fill the last column when applying; keep it with the PR / ticket. Revert depends on it.
+Already applied by the merchant. To re-check or re-apply:
 
-| Item | Where | Observed 2026-09-27 | At apply time |
-| --- | --- | --- | --- |
-| *Track quantity* on the variant | Admin → Products → iChillPod → **Inventory** card | **Off** (not tracked = unlimited) | |
-| Available quantity per location | same card (after tracking is on, one row per location) | n/a | |
-| *Continue selling when out of stock* | same card (visible only when tracking is on) | n/a | |
-| Product status / channels | Products → iChillPod → Status, Publishing | Active; Online Store (+ any others — leave) | |
-| Price / compare-at | variant | $29.95 / — | |
-| Cart template sections | Theme editor → Cart | `main-cart-items`, `main-cart-footer` (stock Dawn) | |
-| Permalink behaviour | `curl -sI https://ichillpod.com/cart/67578266419311:1` | 302 → `shop.app/checkout/…/shoppay` | |
+Admin → **Products** → *iChillPod* → **Inventory** card: *Track quantity* **on**, *Continue
+selling when out of stock* **off**, *Available* **0** at every location → Save.
 
-Optional safety net: Themes → live theme → **⋯ → Duplicate** before touching the Cart template
-in §3-B. Not needed for §1 (Admin only).
+Effects (Shopify-enforced, theme-independent): `POST /cart/add` → 422 "sold out"; cart
+permalinks skip the variant; Shopify checkout refuses the line item; Shop app / channels show
+unavailable; the PDP submit button is `disabled` and Shopify hides/disables the accelerated
+checkout button for an unavailable variant.
+
+Do **not**: set to Draft, unpublish from any channel, delete variant/media, change price or
+compare-at, add redirects, password the store, disable Shop Pay or payment providers.
 
 ---
 
-## 1. Hard stop — inventory 0 in Shopify Admin (REQUIRED; the only step that blocks orders)
+## 2. Rename "Sold out" → "Coming soon" — first choice: theme content (no Liquid, no layout)
 
-1. Shopify Admin → **Products** → *iChillPod - No-Power Phone Cooler for Saunas*.
-2. **Inventory** card → tick **Track quantity**. *(Store-specific gotcha: the variant is
-   currently untracked. Until tracking is on, a quantity of 0 has no effect and the item stays
-   purchasable.)*
-3. Make sure **Continue selling when out of stock** is **unticked**.
-4. Set **Available** to **0** for **every** location row shown (Shop location, any warehouse,
-   Shopify Fulfillment Network, etc.).
-5. **Save.**
-6. Do **not**: set to Draft, unpublish from Online Store or any channel, delete the variant or
-   media, change price / compare-at, archive, add URL redirects, password-protect the store,
-   disable Shop Pay or payment providers. None of those are needed and some are irreversible.
+Path: Admin → **Online Store → Themes** → live theme → **⋯ → Edit default theme content**
+(older Admin: *Edit languages*). Use the search box at the top; each hit shows the key path.
+Changes save per theme; nothing else in the theme moves.
 
-Within ~1 minute (CDN) Shopify enforces sold-out server-side: `product.available == false`,
-`POST /cart/add` → 422 "sold out", checkout refuses the line item. This applies equally to the
-theme, cart permalinks, Shop Pay / shop.app, the Shop app, connected channels (Google, Meta…)
-and carts customers already hold.
+### Keys to set (Dawn 16.0.0 `locales/en.default.json`)
 
-### Visible side effects of inventory 0 that are Shopify-native (not theme edits)
+| # | Key (search term) | Dawn default | Where it renders | Set to | Status / notes |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `products.product.sold_out` (**"Sold out"**) | `Sold out` | PDP submit button when unavailable (`snippets/buy-buttons.liquid`); price badge `price__badge-sold-out` (`snippets/price.liquid`); product-card badges and quick-add buttons (`snippets/card-product.liquid` — related products, collections, search); quick-order rows; JS `window.variantStrings.soldOut` (`layout/theme.liquid`) | **Coming soon** | **Already done on live**, but the saved value has a **trailing space** (`Coming soon `). Re-open the field, delete the trailing space, Save. |
+| 2 | `sections.cart.cart_quantity_error_html` (**"You can only add"**) | `You can only add {{ quantity }} of this item to your cart.` | Cart page line-item error when a customer changes the quantity of a line whose variant is unavailable (`assets/cart.js` → `cartStrings.quantityError`) | **Coming soon — should be available within the next 30 days. This item can't be ordered yet.** | Optional; the only Dawn *cart* string a blocked customer can trigger. Dropping `{{ quantity }}` is fine (Dawn does a no-op replace). Record the original. |
+| 3 | `products.product.inventory_out_of_stock` (**"Out of stock"**) | `Out of stock` | Only if the *Inventory status* block is ever added to *Product information* — **not on the live PDP today** | **Coming soon** | Optional / future-proofing. |
+| 4 | `products.product.variant_sold_out_or_unavailable` | `Variant sold out or unavailable` | Screen-reader text on variant pickers — product has a single variant, **not rendered** | leave, or `Variant coming soon or unavailable` | Optional. |
+| 5 | `products.product.unavailable` / `products.product.value_unavailable` | `Unavailable` / `{{ option_value }} - Unavailable` | Only when a variant doesn't exist for a selection — **not the sold-out case**; leave | leave | Changing these would mislabel a different state. |
+| 6 | `products.product.pickup_availability.unavailable` | `Couldn't load pickup availability` | Pickup widget error, unrelated | leave | — |
 
-The theme code is untouched, but Shopify data changes what Dawn renders. Merchant should
-expect and accept:
+Do **not** change `products.product.add_to_cart` or any button/CTA label — those are the
+in-stock state and must come back untouched on revert. (Note: the live PDP rendered
+**"Buy Now"** while in stock although the locale default is "Add to cart", so the live
+`buy-buttons.liquid` or `main-product.liquid` carries a local label edit; it does not affect
+the sold-out branch, which correctly reads the locale key — leave it alone.)
 
-- PDP: the button is still there, still styled the same, but **disabled** and labelled with
-  Dawn's sold-out string (**"Sold out"**). A **"Sold out"** badge appears next to the price
-  (`price--sold-out`).
-- PDP: Shopify's accelerated checkout / **Shop Pay button hides or disables itself** for an
-  unavailable variant (Shopify-controlled; verify in §4).
-- Product cards (related products, collections): "Sold out" badge.
-- Homepage, header, sticky bar, all marketing CTAs: **unchanged** — they still read "Buy Now"
-  and still link to `/products/chillpod`.
+### Checkout (Shopify-hosted, outside the theme)
 
-Decision point, **default = do nothing**: the word "Sold out" could be changed to
-"Coming soon" via *Themes → ⋯ → Edit default theme content → search "Sold out"*
-(`products.product.sold_out`). That is a text-only change with no restyle, but it alters the
-PDP button label, which the revised plan asks us not to touch. Only do it with explicit
-merchant sign-off; note the original value ("Sold out") for revert.
+If a customer with an old cart / Shop Pay cart / permalink reaches checkout, Shopify shows its
+own inventory notice (wording along the lines of *"Some items became unavailable and your cart
+has been updated"* / *"Sold out"*) and removes the line. To align it:
 
----
+Admin → **Settings → Checkout** → *Checkout language* → **Manage checkout language** → search
+**"sold out"**, **"unavailable"**, **"no longer available"**, **"inventory"**. If exposed, set the
+inventory-issue strings to *"Coming soon — should be available within the next 30 days."* and
+record the originals. **Caveat:** Shopify's current checkout does not expose every system
+string and this store is not on Plus (no checkout UI extensions). If the strings are not
+editable, accept the native wording — the storefront itself no longer says "Sold out".
+Order-status "additional scripts" cannot help (they run only after an order).
 
-## 2. Theme appearance — NO CHANGES
+### Multiple languages
 
-- No Liquid file edits. No `buy-buttons.liquid`, header, homepage or sticky-bar changes.
-- No theme settings toggle, no banners, no announcement-bar text, no CTA relabels.
-- Do not hide dynamic checkout on the PDP; do not change the Navigation menu.
-- The only permitted theme-side item is §3-B, which lives on the Cart template and renders only
-  while the product / a line item is unavailable.
-
-The earlier revision of this PR shipped PDP/header/homepage patches; they have been removed.
+Only English (`en`) is published (buyer locale `en`). If other languages are added later,
+repeat #1 (and #2) for each locale in **Edit default theme content → language selector**
+or the *Translate & Adapt* app.
 
 ---
 
-## 3. "Coming soon" message — only at the checkout attempt
+## 3. Fallback — minimal Liquid, only if a "Sold out" string is hard-coded
 
-How a customer can reach a checkout attempt once inventory is 0: (a) they already had the
-item in their cart or a Shop Pay cart, (b) they follow a cart permalink from an ad, email or
-this repo's landing page, (c) the Shop app. Fresh visitors never get past the disabled PDP
-button. Options in priority order:
+Stock Dawn 16.0.0 has **no hard-coded "Sold out"** in rendered Liquid (the only occurrence is a
+code comment in `snippets/price.liquid`). Every surface uses `products.product.sold_out`.
+The live theme confirms this: after the content edit, "Sold out" is absent from all fetched
+pages.
 
-### A) Shopify-native sold-out path (preferred — nothing added to the theme)
-
-What the customer sees with qty = 0 and continue-selling off:
-
-| Path | Expected experience (Shopify-controlled) | Verify in §4 |
-| --- | --- | --- |
-| Cart page `/cart` with the item already in it | Dawn shows the line as usual; pressing **Check out** → Shopify checkout runs an inventory check and shows its **inventory-issue notice** (wording along the lines of *"Some items became unavailable and your cart has been updated"* / *"Sold out"*), removes the line, and cannot proceed to payment. Changing quantity on the cart page returns Dawn's `cart_quantity_error_html` ("You can only add 0 of this item…"). | yes |
-| Cart permalink `/cart/67578266419311:1` | Shopify skips the unavailable variant. Expect a redirect to `/cart` (empty, or with the checkout inventory notice) instead of today's Shop Pay handoff. **Payment cannot be reached.** Exact landing page must be confirmed live. | yes |
-| Shop Pay / shop.app saved cart | Checkout inventory check blocks; Shop app lists the item as unavailable. | yes |
-| Direct `POST /cart/add` | 422 JSON, description *"…is already sold out."* | yes |
-
-Customising that wording to the exact Coming-soon sentence **without touching storefront UI**:
-
-1. **Checkout language (Admin, no theme UI):** Settings → **Checkout** → *Checkout language* →
-   **Manage checkout language** (opens the theme language editor, *Checkout & system* tab).
-   Search **"unavailable"**, **"sold out"**, **"inventory"**. If the inventory-issue strings are
-   exposed there, replace them with *"Coming soon — should be available within the next 30
-   days."* Record the originals. **Caveat:** on Shopify's current checkout not every system
-   string is editable and this store is not on Plus (no checkout UI extensions / custom
-   checkout banners). If the string is not exposed, fall through to B.
-2. **Cart quantity error (Dawn, translation only):** Edit default theme content → search
-   *"You can only add"* (`sections.cart.cart_quantity_error_html`). It fires only when a
-   customer changes quantity of an unavailable line on the cart page. Optional; text-only;
-   record the original.
-3. **Checkout "additional scripts" / order-status scripts** — not usable: they only run on the
-   thank-you / order-status page, which is never reached. Do not attempt.
-
-### B) Minimal theme addition, cart template only (fallback if A's wording can't be edited)
-
-Use `theme-patches/dawn/cart-only/coming-soon-cart-notice.liquid`:
-
-1. Theme editor → template dropdown → **Cart** → **Add section** → **Custom Liquid** → paste
-   the file's contents → drag it above *Cart items* → **Save**.
-2. It renders **only on `/cart`**, and **only while** `all_products['chillpod'].available ==
-   false` **or** a line item's variant is unavailable. The moment inventory is restored it
-   outputs nothing. No code files are modified; the section is stored in that theme's
-   `templates/cart.json`.
-3. It does not block anything; it explains. Text: *"Coming soon — should be available within
-   the next 30 days."* plus one reassurance line ("Nothing has been charged").
-
-Boundaries: never place a Custom Liquid section on the Home page, Product template, header or
-footer groups. Do not edit `main-cart-items.liquid` / `main-cart-footer.liquid` directly — the
-editor-added section is enough and is removable with one click.
-
-### C) Rejected
-
-Storefront-wide announcement bars, Coming Soon banners on PDP/homepage, replacing or relabelling
-Buy Now / Get iChillPod CTAs, hiding Shop Pay / dynamic checkout, `coming_soon_mode` theme
-settings, header menu relabels, password page, redirects. **Not to be applied.** This also
-covers this repo's landing page: its Buy now links stay pointed at the cart permalink, which
-after §1 lands on the cart (where A/B message the customer) instead of Shop Pay.
+Only if a future scan finds a literal "Sold out" (Edit code → search box → `Sold out`): change
+**only the text** to `Coming soon` — do not touch markup, classes, `disabled` attributes,
+`{{ form | payment_button }}`, or block structure. Duplicate the theme first so the original
+file is one click away. Not needed today.
 
 ---
 
-## 4. Verification checklist (run right after §1, then again if §3 was applied)
+## 4. Optional — longer notice on the cart page only
 
-Hard stop:
+`theme-patches/dawn/cart-only/coming-soon-cart-notice.liquid` renders *"Coming soon — should be
+available within the next 30 days."* on **`/cart` only**, and **only while** the product / a
+line item is unavailable (self-hides once inventory returns). Applied via *Theme editor → Cart
+template → Add section → Custom Liquid → paste* — no code files. It is **not** a storefront
+banner and is **not** required; the default is to skip it unless the merchant wants the longer
+sentence where a permalink or old cart lands. Never add it to Home, Product, header or footer.
+
+Rejected (do not apply): Coming Soon banners on PDP/homepage, announcement-bar text, CTA
+replacements or relabels, hiding Buy Now / Shop Pay / dynamic checkout beyond what sold-out
+already does, theme setting toggles, header menu renames, redirects, password page.
+
+---
+
+## 5. Verification
+
+Hard stop (already true on 2026-09-27; re-run any time):
 
 - [ ] `curl -s https://ichillpod.com/products/chillpod.js | grep -o '"available":[a-z]*' | head -1` → `"available":false`
-- [ ] `curl -s -o /dev/null -w '%{http_code}\n' -X POST -d 'id=67578266419311&quantity=1' https://ichillpod.com/cart/add.js` → **422**
-- [ ] Private window → `https://ichillpod.com/cart/67578266419311:1` → **no payment / Shop Pay screen reachable**; note where it lands (`/cart` or checkout inventory notice). Each try may leave an empty abandoned checkout in Admin — harmless.
-- [ ] Same via `https://ichillpod.myshopify.com/cart/67578266419311:1` (301 → same).
-- [ ] Browser that already had the item in cart → `/cart` → **Check out** → checkout shows inventory notice, cannot pay.
-- [ ] Shop app / shop.app: item unavailable.
-- [ ] Admin → Orders: no new orders after the change (spot-check over the first day).
+- [ ] `curl -s -o /dev/null -w '%{http_code}\n' -X POST -d 'id=67578266419311&quantity=1' https://ichillpod.com/cart/add.js` → `422`
+- [ ] Private window → `https://ichillpod.com/cart/67578266419311:1` → no payment / Shop Pay screen reachable (expect `/cart` or Shopify's checkout inventory notice). May leave an empty abandoned checkout in Admin — harmless.
+- [ ] Old cart: `/cart` → **Check out** → Shopify inventory notice, cannot pay.
+- [ ] Admin → Orders: no new orders since the change.
 
-Storefront unchanged (this is a *negative* check):
+Label:
 
-- [ ] Homepage hero, featured CTA, FAQ CTA, sticky bar: still read **Buy Now** and link to `/products/chillpod`. Header still "Buy Now".
-- [ ] PDP layout identical; button present but disabled with Shopify's sold-out label; price **$29.95** still shown; Shop Pay button hidden/disabled by Shopify.
-- [ ] Theme code files unchanged (Themes → ⋯ → Edit code → no recent edits; or compare with the duplicate).
+- [ ] `curl -s https://ichillpod.com/products/chillpod | grep -c 'Sold out'` → `0`; same for `/`, `/cart`, `/collections/all`.
+- [ ] PDP button reads **Coming soon** (no trailing space: `grep -o 'Coming soon[^<]*<' ` shows `Coming soon<`), still `disabled`, same style; price badge reads **Coming soon**; **$29.95** still shown.
+- [ ] Collection / related-product cards: badge **Coming soon**.
+- [ ] If #2 applied: on `/cart` with the item present, change quantity → error text is the Coming-soon sentence.
+- [ ] If checkout language edited: old-cart checkout shows the Coming-soon sentence.
 
-Message (whichever of A/B was used):
+Storefront otherwise unchanged (negative check):
 
-- [ ] The sentence *"Coming soon — should be available within the next 30 days."* appears on the cart / checkout attempt path and **nowhere else** (view-source search on homepage and PDP: 0 hits).
-- [ ] With B: `/cart` with an empty cart still shows the notice while inventory is 0 (because the product is unavailable) — this is the permalink landing case.
-
----
-
-## 5. Revert — exact steps
-
-1. **Inventory** (Admin → Products → iChillPod → Inventory):
-   - Tracking was **Off** before (state recorded in §0): untick **Track quantity** → Save →
-     variant is unlimited again. *(Or keep tracking on and enter the real stock count — a
-     deliberate change; record it.)*
-   - If §0 recorded a tracked quantity: enter it back for each location; re-tick *Continue
-     selling when out of stock* only if it was on before.
-   - Confirm `…/products/chillpod.js` → `"available":true`; PDP button active; Shop Pay back.
-2. **Message clean-up:**
-   - A-1 / A-2: restore the original checkout / cart strings you recorded.
-   - B: Theme editor → Cart → remove the *Custom Liquid* section → Save. (It already renders
-     nothing once inventory is back, so the order of 1 and 2 does not matter.)
-   - Sold-out translation, if the merchant approved changing it: set back to "Sold out".
-3. **Storefront:** nothing to revert — it was never changed.
-4. **This repo:** nothing to revert — `index.html` is unchanged in this PR.
-5. Re-run §4 in reverse: permalink reaches checkout again; place a test order if desired
-   (Admin → Settings → Payments → test mode, or cancel/refund a real $29.95 order).
+- [ ] Homepage hero / featured CTA / FAQ CTA / sticky bar still read **Buy Now**; header still **Buy Now**; all still link to `/products/chillpod`.
+- [ ] Edit code shows no modified Liquid/JSON files from this work (only theme content / translations changed).
 
 ---
 
-## 6. Irreversibility / risk flags — read before applying live
+## 6. Revert — exact steps
 
-- **Nothing here is irreversible** when done as written. Deliberately excluded because they are
-  destructive or hard to undo: deleting product / variants / media, price changes, URL
-  redirects, unpublishing channels, storefront password, disabling payment providers.
-- **Enabling Track quantity** is reversible, but while on Shopify decrements stock on any
-  future sale; on revert either turn it off again or enter the correct count.
-- **Orders are blocked for everyone**, including staff testing — use Admin draft orders if you
-  must sell manually during the window.
-- **Abandoned-checkout recovery emails / Flow / Klaviyo** may keep sending "complete your
-  order" links whose checkout will fail. Pause them for the window; emails already sent can't
-  be recalled.
-- **Channel propagation** (Google & YouTube, Meta, Shop): availability changes can take hours in
-  both directions.
-- **Checkout language edits (A-1)** apply store-wide to every checkout string you change —
-  only change the inventory-issue strings, nothing else, and record originals.
-- **Custom Liquid section (B)** is stored in `templates/cart.json` of the theme you edit only;
-  if a different theme is published later it will not carry over (harmless).
-- A theme duplicate taken before §3-B is the one-click restore for the Cart template.
+1. **Inventory** — Admin → Products → iChillPod → Inventory:
+   - Prior state was **not tracked**: untick **Track quantity** → Save (unlimited again). Or keep
+     tracking and enter the real stock count per location — a deliberate change; note it.
+   - Re-tick *Continue selling when out of stock* **only** if it was on before (it was not
+     applicable — tracking was off).
+   - Check `…/products/chillpod.js` → `"available":true`; PDP button active ("Buy Now"), Shop Pay
+     visible again.
+2. **Theme content** — Edit default theme content:
+   - `products.product.sold_out` → **Sold out**
+   - `sections.cart.cart_quantity_error_html` → **You can only add {{ quantity }} of this item to your cart.** (if changed)
+   - `products.product.inventory_out_of_stock` → **Out of stock** (if changed)
+   - `products.product.variant_sold_out_or_unavailable` → **Variant sold out or unavailable** (if changed)
+   - Checkout language strings → the originals you recorded (if changed)
+   Once inventory is back these strings are not rendered anyway, so order of 1 and 2 doesn't
+   matter — but restore them so the theme is clean for the next sold-out event.
+3. **Optional cart notice** (§4) — Theme editor → Cart → remove the Custom Liquid section → Save.
+4. **Storefront / this repo** — nothing to revert; neither was changed.
+
+---
+
+## 7. Irreversibility / risk flags — read before applying live
+
+- **The string swap is reversible** (per-theme content edit; originals listed in §6). **Inventory
+  changes are reversible.** Nothing in this plan is destructive.
+- Content edits are stored **on the theme you edit**. Publishing a different theme (or a fresh
+  duplicate made *before* the edit) drops them — harmless, but re-apply if that happens.
+- **Track quantity on** means Shopify will decrement stock on any future sale; on revert turn it
+  off again or enter the correct count.
+- **Orders are blocked for everyone**, including staff; use Admin draft orders for manual sales.
+- **Abandoned-checkout / marketing automations** may keep sending "complete your order" links
+  that will fail — pause them for the window; sent emails can't be recalled.
+- **Channel propagation** (Shop, Google & YouTube, Meta) lags by hours in both directions.
+- **Checkout language edits apply store-wide** — change only the inventory-issue strings.
+- Excluded on purpose: deleting product/variants/media, price changes, redirects, unpublishing,
+  password page, payment-provider changes.
