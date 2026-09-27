@@ -1,24 +1,18 @@
-# Cart-only Coming Soon notice (optional)
+# Cart-only Coming soon notice (optional, not required)
 
-Per the merchant's revised decision, **the Dawn storefront is not changed**: no Coming Soon
-banners, no CTA or label changes, no hiding of Buy Now / Shop Pay, no PDP / homepage / header
-edits. The only allowed theme-side messaging is something a customer meets **at the cart /
-checkout attempt**, and only if Shopify's native wording (see the runbook, §3-A) is not enough.
+The plan for ichillpod.com is: inventory 0 (already in place) + rename the theme content string
+`products.product.sold_out` from "Sold out" to **Coming soon** via *Edit default theme content*
+(already rendering live; trailing space to trim). See `docs/COMING_SOON_DISABLE_ORDERS.md`.
+No Liquid layout edits, no hidden buttons, no marketing banners.
 
-This folder contains exactly one such option:
+This folder holds one **optional** extra for the longer sentence, if the merchant wants it
+where a permalink or an old cart lands:
 
 | File | Applied where | Touches code files? | Shows on |
 | --- | --- | --- | --- |
-| `coming-soon-cart-notice.liquid` | Theme editor → **Cart** template → *Add section* → **Custom Liquid** → paste | **No** (stored in `templates/cart.json` of that theme only) | `/cart` page only, and only while the product / a line item is unavailable |
+| `coming-soon-cart-notice.liquid` | Theme editor → **Cart** template → *Add section* → **Custom Liquid** → paste | **No** (stored in that theme's `templates/cart.json`) | `/cart` page only, and only while the product / a line item is unavailable |
 
-It renders the sentence **"Coming soon — should be available within the next 30 days."** and is
-self-hiding: once inventory is restored (`product.available == true`, no unavailable line
-items) it outputs nothing. Removing the section from the Cart template in the editor is the
-full clean-up.
+It renders **"Coming soon — should be available within the next 30 days."** and is self-hiding
+once inventory is restored. Removing the section in the editor is the full clean-up.
 
-Nothing in this folder is deployed by this repository. It does not block orders; the inventory
-hard stop in Shopify Admin does (runbook §1).
-
-Rejected and deliberately **not** provided anymore: `buy-buttons.liquid` patches, header
-menu relabels, homepage / sticky-bar CTA swaps, a `coming_soon_mode` theme setting, cart /
-drawer checkout-button hiding. Those altered storefront appearance.
+Not deployed by this repository. Does not block orders (inventory does). Default: skip it.
