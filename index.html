@@ -39,10 +39,6 @@
   .btn:hover{background:var(--cyan-dark);transform:translateY(-2px);}
   .btn.block{width:100%;}
   .btn.lg{font-size:1.18rem;padding:20px 34px;min-height:58px;}
-  /* COMING SOON MODE: non-link pill that replaces the Shopify Buy CTAs while ordering is paused */
-  .btn.soon{cursor:default;background:var(--navy);box-shadow:none;}
-  .btn.soon:hover{background:var(--navy);transform:none;}
-  .soon-note{font-size:.92rem;font-weight:600;color:var(--navy-soft);margin:10px 0 0;text-align:center;}
   .cta-micro{font-size:.86rem;color:var(--navy-soft);margin:12px 0 0;}
   /* payment-method trust row (visual only; checkout is handled by Shopify) */
   .payrow{margin:12px 0 0;}
@@ -294,7 +290,7 @@
     <a class="logo hdr-logo" href="#" aria-label="iChillPod home"><img src="ichillpod-logo.png" alt="iChillPod" width="930" height="200" decoding="async"></a>
     <nav class="nav"><a href="#why">Why</a><a href="#proof">Proof</a><a href="#details">FAQ</a><a href="#offer">Buy</a></nav>
     <div class="hdr-cta">
-      <span class="btn soon" role="status" aria-disabled="true" aria-label="Coming Soon - Availability coming soon">Coming Soon</span>
+      <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn" rel="noopener">Buy now</a>
       <div class="payrow" role="group" aria-label="Accepted payment methods">
         <div class="payrow-icons">
           <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
@@ -322,8 +318,7 @@
         <div class="buybox">
           <div class="priceline"><span class="amt">$29</span><span class="was">$39</span><span class="price-note">Free shipping &middot; 30-day money-back guarantee</span></div>
           <div class="saleline">&#128293; Launch sale ends in <span class="countdown">--:--:--</span></div>
-          <span class="btn block lg soon" role="status" aria-disabled="true">Coming Soon</span>
-          <p class="soon-note">Availability coming soon</p>
+          <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn block lg" rel="noopener">Buy now</a>
           <div class="payrow" role="group" aria-label="Accepted payment methods">
             <span class="payrow-label">We accept</span>
             <div class="payrow-icons">
@@ -461,8 +456,7 @@
           <div class="tier-note">One&rsquo;s always frozen &amp; ready to swap</div>
         </div>
       </div>
-      <span class="btn block lg soon" role="status" aria-disabled="true">Coming Soon</span>
-      <p class="soon-note">Availability coming soon</p>
+      <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn block lg" rel="noopener">Get iChillPod</a>
       <div class="payrow" role="group" aria-label="Accepted payment methods">
         <span class="payrow-label">We accept</span>
         <div class="payrow-icons">
@@ -540,8 +534,8 @@
 
 <!-- STICKY BOTTOM BAR (mobile) -->
 <div class="stickybar" id="stickybar" aria-hidden="true">
-  <div class="txt">iChillPod<small>Availability coming soon</small></div>
-  <span class="btn soon" role="status" aria-disabled="true" aria-label="Coming Soon - Availability coming soon">Coming Soon</span>
+  <div class="txt">iChillPod<small>30-day money-back guarantee</small></div>
+  <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn" rel="noopener">Buy now</a>
   <div class="payrow" role="group" aria-label="Accepted payment methods">
     <div class="payrow-icons">
     <svg class="pay" viewBox="0 0 44 28" role="img" aria-label="Apple Pay"><use href="#pay-apple"/></svg>
@@ -606,18 +600,11 @@
   })();
 </script>
 
-<!-- SHOPIFY PURCHASE FLOW — COMING SOON MODE (ordering paused)
-     The four purchase CTAs (header pill, hero, offer card, mobile sticky bar) are
-     currently non-link <span class="btn soon"> "Coming Soon" pills. This page is
-     Render parity only; it does NOT control the Shopify storefront. See
-     docs/COMING_SOON_DISABLE_ORDERS.md for the Shopify Admin + Dawn theme runbook.
-
-     REVERT: replace each <span class="btn ... soon" ...>Coming Soon</span> with
-       <a href="https://ichillpod.myshopify.com/cart/67578266419311:1" class="btn ..." rel="noopener">Buy now</a>
-     (offer card label was "Get iChillPod"), remove the <p class="soon-note"> lines and
-     restore the sticky-bar subtitle "30-day money-back guarantee". The permalink adds one
-     iChillPod (product 15554226356335, handle "chillpod", variant 67578266419311
-     "Default Title") and lands directly on checkout. -->
+<!-- SHOPIFY PURCHASE FLOW
+     Every purchase CTA links to the Shopify cart permalink
+     https://ichillpod.myshopify.com/cart/67578266419311:1
+     which adds one iChillPod (product 15554226356335, handle "chillpod",
+     variant 67578266419311 "Default Title") and lands directly on checkout. -->
 <script>
 (function(){var els=document.querySelectorAll('.countdown');if(!els.length)return;function p(n){return String(n).padStart(2,'0');}var HOUR=3600000;function deadline(){var d=parseInt(localStorage.getItem('icp_cd')||'0',10);var now=Date.now();if(!d||d<=now){d=now+HOUR;try{localStorage.setItem('icp_cd',d);}catch(e){}}return d;}function tick(){var s=Math.max(0,Math.floor((deadline()-Date.now())/1000));var t=p(Math.floor(s/60))+':'+p(s%60);els.forEach(function(e){e.textContent=t;});}tick();setInterval(tick,1000);})();
 </script>
