@@ -1,0 +1,42 @@
+{%- comment -%}
+  OPTIONAL — cart-page-only "Coming soon" notice for ichillpod.com (Dawn 16.0.0).
+  Only use if the Shopify-native cart/checkout wording (runbook §3-A) is not acceptable.
+
+  HOW TO APPLY (theme editor only, no code files touched):
+    Online Store -> Themes -> Customize -> template dropdown -> Cart
+    -> Add section -> "Custom Liquid" -> paste this whole file into the Liquid box
+    -> drag the section to the top (above "Cart items") -> Save.
+
+  WHERE IT RENDERS: the /cart page only. Never on the product page, homepage, header,
+  collections or any marketing section. Buy Now / Shop Pay / all storefront chrome untouched.
+
+  WHEN IT RENDERS: only while the chillpod product is unavailable (inventory 0, continue
+  selling off) OR the cart holds a line item whose variant is unavailable. Once inventory is
+  restored the notice disappears by itself; the section can then be removed via the editor.
+
+  Nothing here blocks checkout. The inventory hard stop (runbook §1) does that.
+{%- endcomment -%}
+{%- liquid
+  assign coming_soon_product = all_products['chillpod']
+  assign show_coming_soon = false
+  if coming_soon_product != blank and coming_soon_product.available == false
+    assign show_coming_soon = true
+  endif
+  for item in cart.items
+    if item.variant.available == false
+      assign show_coming_soon = true
+    endif
+  endfor
+-%}
+{%- if show_coming_soon -%}
+  <div class="page-width">
+    <div
+      role="status"
+      aria-live="polite"
+      style="border: 0.1rem solid rgba(var(--color-foreground), 0.2); padding: 1.6rem 2rem; margin: 0 0 1rem;"
+    >
+      <p class="h4" style="margin: 0 0 0.6rem;">Coming soon — should be available within the next 30 days.</p>
+      <p style="margin: 0;">iChillPod can't be ordered right now, so this cart can't be checked out yet. Nothing has been charged. Please check back soon.</p>
+    </div>
+  </div>
+{%- endif -%}
