@@ -1,0 +1,63 @@
+{%- comment -%}
+  ichillpod.com — "Notify me when available" FALLBACK. Not the recommended path.
+  Primary path is a Back in Stock app (see docs/NOTIFY_ME_WHEN_AVAILABLE.md §3–§6).
+
+  What this is:   a Custom Liquid block for the Dawn product template. Renders only while the
+                  product is unavailable (Coming Soon / sold out) and disappears by itself once
+                  inventory is restored.
+  Where to paste: Theme editor → Products → Default product → section "Product information"
+                  → Add block → Custom Liquid → paste → drag directly under "Buy buttons" → Save.
+                  Stored in that theme's templates/product.json. No theme code files are edited.
+  What it stores: a Shopify Customer with email-marketing consent, tagged `chillpod-waitlist`
+                  (same built-in `form 'customer'` mechanism as Dawn's footer newsletter block;
+                  Shopify may interpose its /challenge captcha page on submit).
+  What it does NOT do: send anything. On restock day you send a Shopify Email campaign to the
+                  segment `customer_tags CONTAINS 'chillpod-waitlist'` (runbook §7a).
+  Revert:         remove the block in the theme editor → Save. Customers created remain; do not
+                  bulk-delete them.
+{%- endcomment -%}
+{%- unless product.available -%}
+  <div class="chillpod-notify" style="margin-top: 1.2rem;">
+    {%- form 'customer', id: 'ChillpodNotifyForm', class: 'chillpod-notify__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter, chillpod-waitlist">
+
+      {%- if form.posted_successfully? -%}
+        <p class="form__message" id="ChillpodNotifyForm-success" tabindex="-1" autofocus>
+          Thanks — we'll email you the moment the iChillPod is available.
+        </p>
+      {%- else -%}
+        <div class="field" style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: stretch;">
+          <label class="visually-hidden" for="ChillpodNotifyEmail">Email</label>
+          <input
+            id="ChillpodNotifyEmail"
+            class="field__input"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email }}"
+            placeholder="Email"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            aria-required="true"
+            required
+            style="flex: 1 1 14rem; position: static;"
+            {% if form.errors %} aria-invalid="true" aria-describedby="ChillpodNotifyForm-error"{% endif %}
+          >
+          <button type="submit" class="button button--secondary" style="flex: 0 0 auto;">
+            Notify me when available
+          </button>
+        </div>
+
+        {%- if form.errors -%}
+          <small class="form__message" id="ChillpodNotifyForm-error" role="alert" style="display: block; margin-top: 0.6rem;">
+            {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+          </small>
+        {%- endif -%}
+
+        <p class="caption" style="margin: 0.6rem 0 0;">
+          One email when it's back in stock. Unsubscribe anytime.
+        </p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+{%- endunless -%}
