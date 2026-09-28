@@ -35,6 +35,10 @@ Add `chillpod.com` later in Render → your site → **Settings → Custom Domai
 then add the DNS records at your registrar. (You can also uncomment the `domains:`
 block in `render.yaml`.)
 
+## 3D print files
+
+Printable bottle and cap for a Bambu Lab H2D are in [`stl/`](stl/). Settings, orientation, and what changed from Rev 1 are in [`PRINTING.md`](PRINTING.md).
+
 ## After it's live
 
 - All purchase CTAs link to the Shopify cart permalink
